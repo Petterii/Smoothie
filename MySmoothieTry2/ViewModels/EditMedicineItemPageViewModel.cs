@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MySmoothieTry2.Model;
 using MySmoothieTry2.Validations;
+using Plugin.Media;
 using Realms;
 using Realms.Sync;
 using Xamarin.Forms;
@@ -14,6 +15,7 @@ namespace MySmoothieTry2.ViewModels
 {
     public class EditMedicineItemPageViewModel : BaseViewModel
     {
+
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
 
@@ -60,6 +62,18 @@ namespace MySmoothieTry2.ViewModels
 
         public EditMedicineItemPageViewModel()
         {
+            UseCameraCommand = new Command(execute: () => {
+                if (CrossMedia.Current.IsCameraAvailable)
+                {
+                    TakePhoto();
+                }
+                else 
+                {
+                    Console.WriteLine("Camera isn't available...");
+                }
+            }, 
+            canExecute: () => true);
+
             SaveCommand = new Command(
                 execute: () =>
                 {
@@ -87,14 +101,15 @@ namespace MySmoothieTry2.ViewModels
                                               ERRORPROMPT,
                                               OKBUTTONTITLE);
                     }
- 
+
                 },
                 canExecute: () => true
                 );
 
             Singleton store = Singleton.Instance;
             selectedItem = store.SelectedItem;
-            if (selectedItem != null) { 
+            if (selectedItem != null)
+            {
                 BrandNameE = selectedItem.Name;
                 DescriptionE = selectedItem.Description;
             }
@@ -102,6 +117,21 @@ namespace MySmoothieTry2.ViewModels
 
             Initialize().IgnoreResult();
 
+        }
+
+        internal async void TakePhoto()
+        {
+            try
+            {
+                //Console.WriteLine("Entered camera method!");
+                var options = new Plugin.Media.Abstractions.StoreCameraMediaOptions() { };
+                var photo = await CrossMedia.Current.TakePhotoAsync(options);
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.ToString()}");
+            }
         }
 
         //MedicineItem selectedItem;
@@ -158,8 +188,9 @@ namespace MySmoothieTry2.ViewModels
 
         public ICommand AddCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
+        public ICommand UseCameraCommand { private set; get; }
 
-        //Tell all buttons to check there canexecute status again
+        // Tell all buttons to check their canexecute status again
         private void RefreshCanExecute()
         {
             (SaveCommand as Command).ChangeCanExecute();
