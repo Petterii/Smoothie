@@ -37,7 +37,7 @@
                 </TableSection>
                 
             <TableSection Title="Smoothie">
-                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Name, Mode=TwoWay}"/>
+                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
             </TableSection>
             
             <TableSection Title="Ingredients">
@@ -74,7 +74,7 @@
             <TableSection Title="Description">
                 <ViewCell>
                     <StackLayout Padding="15">
-                        <Editor x:Name="descriptionCell" Text="{Binding Description, Mode=TwoWay}"/>
+                        <Editor x:Name="descriptionCell" Text="{Binding DescriptionE, Mode=TwoWay}"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>
