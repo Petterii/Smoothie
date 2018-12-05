@@ -69,7 +69,7 @@ namespace MySmoothieTry2.ViewModels
                 }
                 else 
                 {
-                    Console.WriteLine("Camera isn't available...");
+                    Console.WriteLine(CAMERAUNAVAILABLE);
                 }
             }, 
             canExecute: () => true);

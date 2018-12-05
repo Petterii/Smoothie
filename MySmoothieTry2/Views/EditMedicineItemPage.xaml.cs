@@ -10,6 +10,12 @@ namespace MySmoothieTry2.Views
         public EditMedicineItemPage()
         {
             InitializeComponent();
+
+            smoothieNameCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
+
+            ingredientName.Keyboard = Keyboard.Create(KeyboardFlags.None);
+
+            descriptionCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
         }
     }
 }
