@@ -2,13 +2,11 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:MySmoothieTry2.Views;assembly=MySmoothieTry2"
-            x:Class="MySmoothieTry2.Views.TabbarPage">
-  
-   
-            <local:MedicineListPage/>
+            x:Class="MySmoothieTry2.Views.TabbarPage"
+            Title="Smoothies">
 
-   
-
-            <local:AboutPage/>
+    <local:MedicineListPage/>
+    
+    <local:AboutPage/>
  
 </TabbedPage>

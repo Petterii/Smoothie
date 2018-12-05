@@ -4,13 +4,20 @@
              x:Name="YourView"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="MySmoothieTry2.Views.MedicineListPage"
-             Title="List">
+             Title="List"
+            >
        <ContentPage.BindingContext>
         <vm:MedicineListPageViewModel/>
     </ContentPage.BindingContext>
-          <ContentPage.ToolbarItems>
+   <ContentPage.Icon>
+ <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
+ </ContentPage.Icon>
+    
+        <ContentPage.ToolbarItems>  
             <ToolbarItem Name="Add" Order="Primary" Command="{Binding AddCommand}" Priority="0"/>
         </ContentPage.ToolbarItems>
+   
+    
     <ContentPage.Content>
     
       
@@ -25,14 +32,10 @@
                         <StackLayout x:Name="cellLayout" Padding="10,5,10,5" Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                            <Image Aspect="AspectFit" Source="smoothie.png" WidthRequest="32" HeightRequest="32" VerticalOptions="FillAndExpand" />
                                 <StackLayout x:Name="DetailsLayout" Padding="10,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
-<!--                                <Label Text="{Binding BrandName}" FontAttributes="Bold" FontSize="16" TextColor="Black" />-->
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
                                 
                                     <Label Text="{Binding Description}" FontAttributes="Bold" FontSize="12" TextColor="Blue" />
-<!--                                <Label Text="{Binding DateDoseTaken}" YAlign="Center" Font="Small" />-->
-<!--                                <StackLayout x:Name="SideEffects" VerticalOptions="Fill" Orientation="Vertical" Spacing="3">-->
-<!--                                    <Label Text="{Binding SideEffects}" FontSize="12" TextColor="Black" />-->
-<!--                                </StackLayout>-->
+
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

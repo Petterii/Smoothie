@@ -12,7 +12,7 @@ namespace MySmoothieTry2
         {
             InitializeComponent();
 
-            NavigationPage navPage = new NavigationPage(new TabbarPage());
+            NavigationPage navPage = new NavigationPage(new TabbarPage() { Title ="Smoothies"});
 
             MainPage = navPage;
         }

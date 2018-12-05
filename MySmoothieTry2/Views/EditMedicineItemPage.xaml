@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
-             x:Class="MySmoothieTry2.Views.EditMedicineItemPage">
+             x:Class="MySmoothieTry2.Views.EditMedicineItemPage"
+             Title="Adding/Editing">
+    
         <ContentPage.BindingContext>
         <vm:EditMedicineItemPageViewModel/>
     </ContentPage.BindingContext>
