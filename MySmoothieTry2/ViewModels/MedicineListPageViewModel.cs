@@ -16,8 +16,6 @@ namespace MySmoothieTry2.ViewModels
 
         private Realm _realm;
 
-        //private IEnumerable<MedicineItem> smoothies;
-        //public IEnumerable<MedicineItem> Smoothies
         private IEnumerable<SmoothieItem> smoothies;
         public IEnumerable<SmoothieItem> Smoothies
         {
@@ -89,8 +87,6 @@ namespace MySmoothieTry2.ViewModels
 
         }
 
-        //MedicineItem selectedItem;
-        //public MedicineItem SelectedItem
         SmoothieItem selectedItem;
         public SmoothieItem SelectedItem
         {

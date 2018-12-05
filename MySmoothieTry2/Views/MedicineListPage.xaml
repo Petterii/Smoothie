@@ -3,7 +3,8 @@
              xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
              x:Name="YourView"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="MySmoothieTry2.Views.MedicineListPage">
+             x:Class="MySmoothieTry2.Views.MedicineListPage"
+             Title="List">
        <ContentPage.BindingContext>
         <vm:MedicineListPageViewModel/>
     </ContentPage.BindingContext>
