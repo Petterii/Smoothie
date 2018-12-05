@@ -166,6 +166,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="smoothie.png" />
+    <BundleResource Include="Resources\smoothie.png" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
              x:Class="MySmoothieTry2.Views.AboutPage"
              Title="About">
     <ContentPage.Content>
-        <Label Text="THIS ABOUT TO GET SERIOUS..." />
+        <Label Text="THIS IS ABOUT TO GET SERIOUS..." />
         
     </ContentPage.Content>
 </ContentPage>
