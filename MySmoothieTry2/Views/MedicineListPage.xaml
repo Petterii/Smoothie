@@ -19,7 +19,7 @@
                 <DataTemplate>
                     <ViewCell >
                              <ViewCell.ContextActions>
-                                <MenuItem Command="{Binding Path=BindingContext.DeleteNoteCommand, Source={x:Reference YourView}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                <MenuItem Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference YourView}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                             </ViewCell.ContextActions>
                         <StackLayout x:Name="cellLayout" Padding="10,5,10,5" Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                            <Image Aspect="AspectFit" Source="smoothie.png" WidthRequest="32" HeightRequest="32" VerticalOptions="FillAndExpand" />
