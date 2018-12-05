@@ -24,14 +24,12 @@
         <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Intent="Form" HasUnevenRows="true">
                 
-                <TableSection>
-                    <!--<ViewCell Height="100"> ERIKS
-                    <Image Source="blender.png"/>
-                        </ViewCell>-->
+                <TableSection>        
                     <ViewCell>
                             <StackLayout Padding="5" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                <Image x:Name="TestImage" Aspect="AspectFit" Source="blender.png" WidthRequest="70" HeightRequest="70" VerticalOptions="FillAndExpand" />
-                                <!--<Button x:Name="CameraButton" Text="Take Photo"/>-->
+                                <Image x:Name="BlenderImage" Aspect="AspectFit" Source="blender.png" 
+                                                WidthRequest="70" HeightRequest="70" VerticalOptions="FillAndExpand"/>
+                                <Button Text="Take photo" Command="{Binding UseCameraCommand}" />
                             </StackLayout>
                         </ViewCell>
                 </TableSection>
