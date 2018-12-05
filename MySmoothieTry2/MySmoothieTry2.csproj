@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
+    <PackageReference Include="Realm" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Validations\" />
+    <Folder Include="ImageResourse\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="smoothie.png" />
+    <None Remove="ImageResourse\smoothie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImageResourse\smoothie.png" />
+  </ItemGroup>
+</Project>
