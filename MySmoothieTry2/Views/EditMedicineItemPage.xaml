@@ -36,6 +36,7 @@
 
            <TableSection Title="Smoothie">
                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
+                    
            </TableSection>
 
            <TableSection Title="Ingredients">
@@ -54,7 +55,7 @@
                    <StackLayout Padding="10,0,0,0" Orientation="Horizontal">
                      <StackLayout Orientation="Horizontal">
                        <Label Text="Ingr." />
-                       <Entry Text="{Binding TestIngredient}"/>
+                       <Entry Text="Binding TestIngredient"/>
                      </StackLayout>
                      <StackLayout Orientation="Horizontal">
                        <Label Text="Amount (ml)" />

@@ -5,21 +5,44 @@ namespace MySmoothieTry2.Model
 {
     public class Singleton
     {
-        private IEnumerable<MedicineItem> smoothies;
-        public IEnumerable<MedicineItem> Smoothies { 
-        get { return smoothies; }
+        //private IEnumerable<MedicineItem> smoothies;
+        //public IEnumerable<MedicineItem> Smoothies { 
+        //get { return smoothies; }
 
-        set {
-            if (smoothies== null)
+        //set {
+        //    if (smoothies== null)
+        //        {
+        //            smoothies = value;       
+        //        }
+        //    }
+        //}
+
+        private IEnumerable<SmoothieItem> smoothies;
+        public IEnumerable<SmoothieItem> Smoothies
+        {
+            get { return smoothies; }
+
+            set
+            {
+                if (smoothies == null)
                 {
-                    smoothies = value;       
+                    smoothies = value;
                 }
-                
             }
         }
 
-        private MedicineItem selectedItem;
-        public MedicineItem SelectedItem
+        //private MedicineItem selectedItem;
+        //public MedicineItem SelectedItem
+        //{
+        //    get { return selectedItem; }
+        //    set
+        //    {
+        //        selectedItem = value;
+        //    }
+        //}
+
+        private SmoothieItem selectedItem;
+        public SmoothieItem SelectedItem
         {
             get { return selectedItem; }
             set

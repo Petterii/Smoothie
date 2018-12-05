@@ -29,8 +29,10 @@ namespace MySmoothieTry2.ViewModels
 
         private Realm _realm;
 
-        private IEnumerable<MedicineItem> smoothie;
-        public IEnumerable<MedicineItem> Smoothie
+        // private IEnumerable<MedicineItem> smoothie;
+        // public IEnumerable<MedicineItem> Smoothie
+        private IEnumerable<SmoothieItem> smoothie;
+        public IEnumerable<SmoothieItem> Smoothie
         {
             get
             {
@@ -45,9 +47,9 @@ namespace MySmoothieTry2.ViewModels
         private async Task Initialize()
         {
             _realm = await OpenRealm();
-            Smoothie = _realm.All<MedicineItem>().OrderBy(m => m.BrandName);
+            //Smoothie = _realm.All<MedicineItem>().OrderBy(m => m.BrandName);
+            Smoothie = _realm.All<SmoothieItem>().OrderBy(m => m.Name);
 
-           
         }
 
         private async Task<Realm> OpenRealm()
@@ -70,25 +72,25 @@ namespace MySmoothieTry2.ViewModels
 
         public EditMedicineItemPageViewModel()
         {
-   
-
-     
             SaveCommand = new Command(
                 execute: () =>
                 {
-
                     if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
                     //if (App.SelectedSmoothie != null && !string.IsNullOrEmpty(App.SelectedSmoothie.Name) && !string.IsNullOrEmpty(App.SelectedSmoothie.Description))
                     {
                         _realm.WriteAsync((tempRealm) =>
                         {
                             OnPropertyChanged("BrandNameE");
-                            MedicineItem newItem = new MedicineItem();
-                            newItem.BrandName = BrandNameE;
+                            //MedicineItem newItem = new MedicineItem();
+                            SmoothieItem newItem = new SmoothieItem();
+                            //newItem.BrandName = BrandNameE;
+                            //newItem.Id = Guid.NewGuid().ToString();
+                            //newItem.Description = DescriptionE;
+                            newItem.Name = BrandNameE;
                             newItem.Id = Guid.NewGuid().ToString();
                             newItem.Description = DescriptionE;
-                            newItem.SideEffects = SideEffectsE;
-                            newItem.Dosage = "Every Second";
+                            //newItem.SideEffects = SideEffectsE;
+                            //newItem.Dosage = "Every Second";
                             //       newItem.DateDoseTaken = new DateTimeOffset();
                             tempRealm.Add(newItem, true);
                         });
@@ -113,7 +115,7 @@ namespace MySmoothieTry2.ViewModels
             Singleton store = Singleton.Instance;
             selectedItem = store.SelectedItem;
             if (selectedItem != null) { 
-                BrandNameE = selectedItem.BrandName;
+                BrandNameE = selectedItem.Name;
                 DescriptionE = selectedItem.Description;
             }
 
@@ -122,8 +124,10 @@ namespace MySmoothieTry2.ViewModels
 
         }
 
-        MedicineItem selectedItem;
-        public MedicineItem SelectedItem
+        //MedicineItem selectedItem;
+        //public MedicineItem SelectedItem
+        SmoothieItem selectedItem;
+        public SmoothieItem SelectedItem
         {
             get
             {
@@ -171,39 +175,39 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        private string sideEffectsE;
-        public string SideEffectsE
-        {
-            get
-            {
-                return sideEffectsE;
-            }
-            set
-            {
-                if (!value.Equals(sideEffectsE))
-                {
-                    SetProperty(ref sideEffectsE, value);
-                    RefreshCanExecute();
-                }
-            }
-        }
+        //private string sideEffectsE;
+        //public string SideEffectsE
+        //{
+        //    get
+        //    {
+        //        return sideEffectsE;
+        //    }
+        //    set
+        //    {
+        //        if (!value.Equals(sideEffectsE))
+        //        {
+        //            SetProperty(ref sideEffectsE, value);
+        //            RefreshCanExecute();
+        //        }
+        //    }
+        //}
 
-        private string dosageE;
-        public string DosageE
-        {
-            get
-            {
-                return dosageE;
-            }
-            set
-            {
-                if (!value.Equals(dosageE))
-                {
-                    SetProperty(ref dosageE, value);
-                    RefreshCanExecute();
-                }
-            }
-        }
+        //private string dosageE;
+        //public string DosageE
+        //{
+        //    get
+        //    {
+        //        return dosageE;
+        //    }
+        //    set
+        //    {
+        //        if (!value.Equals(dosageE))
+        //        {
+        //            SetProperty(ref dosageE, value);
+        //            RefreshCanExecute();
+        //        }
+        //    }
+        //}
 
         public ICommand AddCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }

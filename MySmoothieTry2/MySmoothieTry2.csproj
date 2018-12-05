@@ -27,4 +27,7 @@
   <ItemGroup>
     <EmbeddedResource Include="ImageResourse\smoothie.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Model\Smoothie.cs" />
+  </ItemGroup>
 </Project>

@@ -16,8 +16,10 @@ namespace MySmoothieTry2.ViewModels
 
         private Realm _realm;
 
-        private IEnumerable<MedicineItem> smoothies;
-        public IEnumerable<MedicineItem> Smoothies
+        //private IEnumerable<MedicineItem> smoothies;
+        //public IEnumerable<MedicineItem> Smoothies
+        private IEnumerable<SmoothieItem> smoothies;
+        public IEnumerable<SmoothieItem> Smoothies
         {
             get
             {
@@ -32,9 +34,8 @@ namespace MySmoothieTry2.ViewModels
         private async Task Initialize()
         {
             _realm = await OpenRealm();
-            Smoothies = _realm.All<MedicineItem>().OrderBy(m => m.BrandName);
-
-
+            //Smoothies = _realm.All<MedicineItem>().OrderBy(m => m.BrandName);
+            Smoothies = _realm.All<SmoothieItem>().OrderBy(m => m.Name);
         }
 
         private async Task<Realm> OpenRealm()
@@ -88,8 +89,10 @@ namespace MySmoothieTry2.ViewModels
 
         }
 
-        MedicineItem selectedItem;
-        public MedicineItem SelectedItem
+        //MedicineItem selectedItem;
+        //public MedicineItem SelectedItem
+        SmoothieItem selectedItem;
+        public SmoothieItem SelectedItem
         {
             get
             {
