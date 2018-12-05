@@ -69,7 +69,7 @@ namespace MySmoothieTry2.ViewModels
                 }
                 else 
                 {
-                    Console.WriteLine("Camera isn't available...");
+                    Console.WriteLine(CAMERAUNAVAILABLE);
                 }
             }, 
             canExecute: () => true);
@@ -77,31 +77,7 @@ namespace MySmoothieTry2.ViewModels
             SaveCommand = new Command(
                 execute: () =>
                 {
-                    if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
-                     {
-                        _realm.WriteAsync((tempRealm) =>
-                        {
-                            OnPropertyChanged("BrandNameE");
-                     
-                            SmoothieItem newItem = new SmoothieItem();
-                           
-                            newItem.Name = BrandNameE;
-                            newItem.Id = Guid.NewGuid().ToString();
-                            newItem.Description = DescriptionE;
-                  
-                            tempRealm.Add(newItem, true);
-                        });
-
-                        Application.Current.MainPage.Navigation.PopAsync();
-                    }
-                    else
-                    {
-  
-                        Application.Current.MainPage.DisplayAlert(ERRORTITLE,
-                                              ERRORPROMPT,
-                                              OKBUTTONTITLE);
-                    }
-
+                    SaveToDatabase();
                 },
                 canExecute: () => true
                 );
@@ -131,6 +107,34 @@ namespace MySmoothieTry2.ViewModels
             catch (Exception e)
             {
                 Console.WriteLine($"{e.ToString()}");
+            }
+        }
+
+        internal void SaveToDatabase()
+        {
+            if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
+            {
+                _realm.WriteAsync((tempRealm) =>
+                {
+                    OnPropertyChanged("BrandNameE");
+
+                    SmoothieItem newItem = new SmoothieItem();
+
+                    newItem.Name = BrandNameE;
+                    newItem.Id = Guid.NewGuid().ToString();
+                    newItem.Description = DescriptionE;
+
+                    tempRealm.Add(newItem, true);
+                });
+
+                Application.Current.MainPage.Navigation.PopAsync();
+            }
+            else
+            {
+
+                Application.Current.MainPage.DisplayAlert(ERRORTITLE,
+                                      ERRORPROMPT,
+                                      OKBUTTONTITLE);
             }
         }
 

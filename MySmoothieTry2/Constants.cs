@@ -15,5 +15,7 @@ namespace MySmoothieTry2
         public const string ERRORPROMPT = "Name and Description are required.";
 
         public const string SAVEBUTTONTITLE = "Save";
+
+        public const string CAMERAUNAVAILABLE = "Camera isn't available...";
     }
 }
