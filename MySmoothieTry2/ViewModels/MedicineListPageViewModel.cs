@@ -113,12 +113,9 @@ namespace MySmoothieTry2.ViewModels
         public ICommand AddCommand { private set; get; }
         public ICommand DeleteCommand { private set; get; }
 
-
-
         //Tell all buttons to check there canexecute status again
         private void RefreshCanExecute()
         {
-     
             (AddCommand as Command).ChangeCanExecute();
         }
     }

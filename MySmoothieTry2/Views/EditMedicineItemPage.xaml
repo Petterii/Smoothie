@@ -10,74 +10,76 @@
             <ToolbarItem Name="Save" Order="Primary" Priority="0" Command="{Binding SaveCommand}"/>
         </ContentPage.ToolbarItems>
       
-    <ContentPage.Content>
+    <ContentPage.Content>        
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-   <Grid>
-       <Grid.RowDefinitions>
-           <RowDefinition Height="*" />
-           <RowDefinition Height="Auto" />
-       </Grid.RowDefinitions>
-       <Grid.ColumnDefinitions>
-           <ColumnDefinition Width="*" />
-           <ColumnDefinition Width="*" />
-       </Grid.ColumnDefinitions>
-
-       <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                  Intent="Form" HasUnevenRows="true">
-
-               <TableSection>
-                   <ViewCell>
-                           <StackLayout Padding="20,0,0,0" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                               <Image x:Name="TestImage" Aspect="AspectFit" Source="blender.png" WidthRequest="70" HeightRequest="70" VerticalOptions="FillAndExpand" />
-                               <!--<Button x:Name=“CameraButton” Text=“Take Photo”/>-->
-                           </StackLayout>
-                       </ViewCell>
-               </TableSection>
-
-           <TableSection Title="Smoothie">
-               <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
+        <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                   Intent="Form" HasUnevenRows="true">
+                
+                <TableSection>
+                    <!--<ViewCell Height="100"> ERIKS
+                    <Image Source="blender.png"/>
+                        </ViewCell>-->
+                    <ViewCell>
+                            <StackLayout Padding="5" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Image x:Name="TestImage" Aspect="AspectFit" Source="blender.png" WidthRequest="70" HeightRequest="70" VerticalOptions="FillAndExpand" />
+                                <!--<Button x:Name="CameraButton" Text="Take Photo"/>-->
+                            </StackLayout>
+                        </ViewCell>
+                </TableSection>
+                
+            <TableSection Title="Smoothie">
+                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Name, Mode=TwoWay}"/>
+            </TableSection>
+            
+            <TableSection Title="Ingredients">
+                <ViewCell>
+                <StackLayout Padding="5" Orientation="Vertical">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding NewIngredientName}"/> 
+                        <Entry x:Name="ingredientAmount" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)"/> 
+                        <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT"/>
+                    </Grid>
+                </StackLayout>
+                </ViewCell>
                     
-           </TableSection>
-
-           <TableSection Title="Ingredients">
-               <ViewCell Height="30">
-                   <Grid>
-                       <Grid.ColumnDefinitions>
-                           <ColumnDefinition Width="50*" />
-                           <ColumnDefinition Width="50*" />
-                       </Grid.ColumnDefinitions>
-                       <Label x:Name="ingredientsCell" Grid.Column="0" Text="Ingredient"/>
-                       <Label x:Name="amountCell" Grid.Column="1" Text="Amount (ml)"/>
-                   </Grid>
-               </ViewCell>
-
-               <ViewCell>
-                   <StackLayout Padding="10,0,0,0" Orientation="Horizontal">
-                     <StackLayout Orientation="Horizontal">
-                       <Label Text="Ingr." />
-                       <Entry Text="Binding TestIngredient"/>
-                     </StackLayout>
-                     <StackLayout Orientation="Horizontal">
-                       <Label Text="Amount (ml)" />
-                       <Entry Text="200" />
-                     </StackLayout>
-                   </StackLayout>
-               </ViewCell>
-
-               <ViewCell>
-               <Button x:Name="addIngredientButton" Text="Add Ingredient" />
-               </ViewCell>
-           </TableSection>
-
-           <TableSection Title="Description">
-               <ViewCell>
-                   <StackLayout Padding="15">
-                       <Editor x:Name="descriptionCell" Text="{Binding DescriptionE, Mode=TwoWay}"/>
-                   </StackLayout>
-               </ViewCell>
-           </TableSection>
-       </TableView>
-   </Grid>
-
+                <ViewCell>
+                   <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding IngredientList}">
+                       <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Height="50" Text="{Binding Name}"/>
+                            </DataTemplate>    
+                       </ListView.ItemTemplate>
+                    </ListView>
+                </ViewCell>
+                                
+            </TableSection>
+            
+            <TableSection Title="Description">
+                <ViewCell>
+                    <StackLayout Padding="15">
+                        <Editor x:Name="descriptionCell" Text="{Binding Description, Mode=TwoWay}"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
+    </Grid>
+        
    </ContentPage.Content>
 </ContentPage>
