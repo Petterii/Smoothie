@@ -85,6 +85,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable\ButtonCamera.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
