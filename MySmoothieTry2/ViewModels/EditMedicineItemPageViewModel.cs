@@ -12,6 +12,8 @@ using Realms;
 using Realms.Sync;
 using Xamarin.Forms;
 using static MySmoothieTry2.Constants;
+using Plugin.Media.Abstractions;
+using System.Threading;
 
 namespace MySmoothieTry2.ViewModels
 {
@@ -97,14 +99,20 @@ namespace MySmoothieTry2.ViewModels
 
         }
 
+        MediaFile file;
+
         internal async void TakePhoto()
         {
+            await CrossMedia.Current.Initialize();
             try
             {
-                //Console.WriteLine("Entered camera method!");
-                var options = new Plugin.Media.Abstractions.StoreCameraMediaOptions() { };
-                var photo = await CrossMedia.Current.TakePhotoAsync(options);
-                await StoreImages(photo.GetStream());
+                var options = new StoreCameraMediaOptions() { };
+                file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                {
+                    PhotoSize = PhotoSize.Medium
+                });
+ //               var photo = await CrossMedia.Current.TakePhotoAsync(options);
+                await StoreImages(file.GetStream());
                 
             }
             catch (Exception e)
@@ -115,11 +123,11 @@ namespace MySmoothieTry2.ViewModels
 
         public async Task<string> StoreImages(Stream imageStream)
         {
-            var stroageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
+            var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
                 .Child("XamarinMonkeys")
-                .Child("image.jpg")
-                .PutAsync(imageStream);
-            string imgurl = stroageImage;
+                .Child("image1.jpg")
+                .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
+            string imgurl = storageImage;
             return imgurl;
         }
 
