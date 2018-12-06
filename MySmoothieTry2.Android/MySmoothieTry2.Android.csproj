@@ -60,6 +60,9 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
+    <PackageReference Include="FirebaseStorage.net">
+      <Version>1.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
