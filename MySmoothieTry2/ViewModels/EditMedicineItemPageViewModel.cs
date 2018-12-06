@@ -1,5 +1,7 @@
 ﻿using System;
+using Firebase.Storage;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -102,12 +104,23 @@ namespace MySmoothieTry2.ViewModels
                 //Console.WriteLine("Entered camera method!");
                 var options = new Plugin.Media.Abstractions.StoreCameraMediaOptions() { };
                 var photo = await CrossMedia.Current.TakePhotoAsync(options);
+                await StoreImages(photo.GetStream());
                 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"{e.ToString()}");
             }
+        }
+
+        public async Task<string> StoreImages(Stream imageStream)
+        {
+            var stroageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
+                .Child("XamarinMonkeys")
+                .Child("image.jpg")
+                .PutAsync(imageStream);
+            string imgurl = stroageImage;
+            return imgurl;
         }
 
         internal void SaveToDatabase()

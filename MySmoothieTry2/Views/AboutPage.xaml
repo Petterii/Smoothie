@@ -7,9 +7,6 @@
  <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
  </ContentPage.Icon>
     <ContentPage.Content>
-     
-
-        
            <Label Text="THIS IS ABOUT TO GET SERIOUS..." />
     </ContentPage.Content>
 </ContentPage>
