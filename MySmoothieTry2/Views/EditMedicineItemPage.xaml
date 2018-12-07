@@ -72,10 +72,7 @@
         </TableView>
             <AbsoluteLayout>
                     <customControls:ImageButton x:Name="CameraButton" Source="ButtonCamera.png"
-                            Command="{Binding UseCameraCommand}"
-                            AbsoluteLayout.LayoutFlags="PositionProportional"
-                            AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
-                            Margin="10">
+                            Command="{Binding UseCameraCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1" HorizontalOptions="Center" Margin="10">
                     </customControls:ImageButton>    
             </AbsoluteLayout>
     </Grid>
