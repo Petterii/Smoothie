@@ -121,6 +121,12 @@
     <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%402x.png" />
     <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%403x.png" />
     <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\Contents.json" />
+    <InterfaceDefinition Include="SmoothieLaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen.png" />
+    <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen%402x.png" />
+    <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -159,5 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\ButtonCamera.png.imageset\" />
+    <Folder Include="Assets.xcassets\appLaunchScreen.imageset\" />
   </ItemGroup>
 </Project>
