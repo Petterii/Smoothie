@@ -16,6 +16,9 @@ namespace MySmoothieTry2.ViewModels
 
         private Realm _realm;
 
+        public ICommand AddCommand { private set; get; }
+        public ICommand DeleteCommand { private set; get; }
+
         private IEnumerable<Smoothie> smoothies;
         public IEnumerable<Smoothie> Smoothies
         {
@@ -29,46 +32,40 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
+    
+        public MedicineListPageViewModel()
+        {
+
+            initICommands();
+
+            Initialize().IgnoreResult();
+
+        }
+
+
         private async Task Initialize()
         {
             _realm = await RealmFunctions.OpenRealm();
             Smoothies = _realm.All<Smoothie>().OrderBy(m => m.Name);
         }
 
-        //private async Task<Realm> OpenRealm()
-        //{
-        //    var user = User.Current;
-        //    if (user != null)
-        //    {
-        //        var config = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
-        //        // User has already logged in, so we can just load the existing data in the Realm.
-        //        return Realm.GetInstance(config);
-        //    }
-        //    var credentials = Credentials.UsernamePassword("test", "test", createUser: false);
-        //    user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-        //    var configuration = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
-        //    // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
-        //    // before letting them interract with the UI.
-        //    var realm = await Realm.GetInstanceAsync(configuration);
-        //    return realm;
-        //}
 
-        public MedicineListPageViewModel()
+
+        private void initICommands()
         {
-        
             DeleteCommand = new Command(
-                execute: (item) =>
-                {
+              execute: (item) =>
+              {
                     // TODO Delete from realm
                     _realm.Write(() =>
-                    {
-                        _realm.Remove((RealmObject)item);
-                    });
+                  {
+                      _realm.Remove((RealmObject)item);
+                  });
 
-                
-                },
-                canExecute: (item) => true
-                );
+              
+              },
+              canExecute: (item) => true
+              );
 
             AddCommand = new Command(
                 execute: () =>
@@ -80,9 +77,6 @@ namespace MySmoothieTry2.ViewModels
                 canExecute: () => true
                 );
 
-
-
-            Initialize().IgnoreResult();
 
         }
 
@@ -105,14 +99,8 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        public ICommand AddCommand { private set; get; }
-        public ICommand DeleteCommand { private set; get; }
 
-        // Tell all buttons to check their canexecute status again
-        private void RefreshCanExecute()
-        {
-            (AddCommand as Command).ChangeCanExecute();
-        }
+
     }
  
 }

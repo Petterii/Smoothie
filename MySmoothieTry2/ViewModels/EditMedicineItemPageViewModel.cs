@@ -61,12 +61,21 @@ namespace MySmoothieTry2.ViewModels
             {
                 CURRENT_SMOOTHIE_ID = selectedSmoothie.Id;
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+
+                if (selectedSmoothie.UrlImage == null)
+                {
+                    ThisImage = "ButtonCamera.png";
+                }
+                else ThisImage = selectedSmoothie.UrlImage; 
+                // ThisImage = Smoothie.UrlImage ist. för ovan?
+
             }
             else 
             {
                 Smoothie = new Smoothie();
                 Smoothie.Id = Guid.NewGuid().ToString();
                 //Smoothie.Ingredients = new IList<Ingredient>();
+                ThisImage = "ButtonCamera.png";
             }
         }
 
@@ -93,7 +102,8 @@ namespace MySmoothieTry2.ViewModels
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)
                 {
-                    TakePhoto();
+
+                   TakePhoto();
                 }
                 else 
                 {
@@ -106,12 +116,11 @@ namespace MySmoothieTry2.ViewModels
                 //execute: () =>
                 //{
                 //    SaveToDatabase();
-                 
+                //    //  await getImage();
+
                 //},
                 //canExecute: () => true
                 //);
-
-         //   downloadImg();
 
             AddIngredientCommand = new Command(
                 execute: () =>
@@ -148,6 +157,24 @@ namespace MySmoothieTry2.ViewModels
                 canExecute: () => true
                 );
                 
+                   //  SaveToDatabase();
+                   //  await getImage();
+
+            //Singleton store = Singleton.Instance;
+            //selectedItem = store.SelectedItem;
+            //if (selectedItem != null)
+            //{
+            //    BrandNameE = selectedItem.Name;
+            //    DescriptionE = selectedItem.Description;
+            //    if (selectedItem.UrlImage == null)
+            //    {
+            //        ThisImage = "ButtonCamera.png";
+            //    }
+            //    else ThisImage = selectedItem.UrlImage;
+
+            //}
+            //else ThisImage = "ButtonCamera.png";
+
             Initialize().IgnoreResult();
         }
 
@@ -164,8 +191,9 @@ namespace MySmoothieTry2.ViewModels
                     PhotoSize = PhotoSize.Medium
                 });
  //               var photo = await CrossMedia.Current.TakePhotoAsync(options);
-                await StoreImages(file.GetStream());
-                
+                ThisImage = await StoreImages(file.GetStream());
+              
+
             }
             catch (Exception e)
             {
@@ -176,8 +204,8 @@ namespace MySmoothieTry2.ViewModels
         public async Task<string> StoreImages(Stream imageStream)
         {
             var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
-                .Child("XamarinMonkeys")
-                .Child("image1.jpg")
+                .Child("Smoothies")
+                .Child(Guid.NewGuid().ToString() + ".jpg")
                 .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
 
 
@@ -194,7 +222,6 @@ namespace MySmoothieTry2.ViewModels
         //            OnPropertyChanged("BrandNameE");
 
         //            SmoothieItem newItem = new SmoothieItem();
-
         //            newItem.Name = BrandNameE;
         //            newItem.Id = Guid.NewGuid().ToString();
         //            newItem.Description = DescriptionE;
@@ -214,7 +241,7 @@ namespace MySmoothieTry2.ViewModels
         //}
 
         Smoothie selectedSmoothie;
-        public Smoothie SelectedItem
+        public Smoothie SelectedSmoothie
         {
             get
             {
@@ -223,6 +250,7 @@ namespace MySmoothieTry2.ViewModels
             set
             {
                 SetProperty(ref selectedSmoothie, value);
+
                 RefreshCanExecute();
             }
         }
@@ -239,6 +267,23 @@ namespace MySmoothieTry2.ViewModels
                 if (!value.Equals(newIngredientName))
                 {
                     SetProperty(ref newIngredientName, value);
+                    RefreshCanExecute();
+                }
+            }
+        }
+     
+        private string thisImage;
+        public string ThisImage
+        {
+            get
+            {
+                return thisImage;
+            }
+            set
+            {
+                if (!value.Equals(thisImage))
+                {
+                    SetProperty(ref thisImage, value);
                     RefreshCanExecute();
                 }
             }
