@@ -58,15 +58,15 @@ namespace MySmoothieTry2.ViewModels
         {
         
             DeleteCommand = new Command(
-                execute: (item) =>
+                execute: async(item) =>
                 {
                     // TODO Delete from realm
 
-                    _realm.Write(() =>
-                    {
+                 
                         _realm.Remove((RealmObject)item);
-                    });
+                   
 
+                
                 },
                 canExecute: (item) => true
                 );
@@ -81,7 +81,7 @@ namespace MySmoothieTry2.ViewModels
                 canExecute: () => true
                 );
 
-     
+
 
             Initialize().IgnoreResult();
 

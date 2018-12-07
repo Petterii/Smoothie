@@ -15,6 +15,8 @@ using static MySmoothieTry2.Constants;
 using Plugin.Media.Abstractions;
 using System.Threading;
 
+
+
 namespace MySmoothieTry2.ViewModels
 {
     public class EditMedicineItemPageViewModel : BaseViewModel
@@ -82,6 +84,7 @@ namespace MySmoothieTry2.ViewModels
                 execute: () =>
                 {
                     SaveToDatabase();
+                 
                 },
                 canExecute: () => true
                 );
@@ -94,10 +97,13 @@ namespace MySmoothieTry2.ViewModels
                 DescriptionE = selectedItem.Description;
             }
 
+         //   downloadImg();
 
             Initialize().IgnoreResult();
 
         }
+
+   
 
         MediaFile file;
 
@@ -127,9 +133,14 @@ namespace MySmoothieTry2.ViewModels
                 .Child("XamarinMonkeys")
                 .Child("image1.jpg")
                 .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
+
+
             string imgurl = storageImage;
             return imgurl;
         }
+
+
+
 
         internal void SaveToDatabase()
         {
