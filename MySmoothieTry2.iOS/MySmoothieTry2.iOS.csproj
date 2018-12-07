@@ -102,7 +102,6 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_20pt%402x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_20pt%403x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_29pt%402x.png" />
@@ -118,6 +117,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_76pt%402x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_83.5%402x.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -143,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\smoothie.png" />
-    <BundleResource Include="Resources\ButtonCamera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\ButtonCamera.png.imageset\" />
   </ItemGroup>
 </Project>

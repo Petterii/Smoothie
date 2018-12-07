@@ -69,7 +69,7 @@
                 </ViewCell>
             </TableSection>
                 
-            <TableSection Title="CameraButton">
+            <TableSection>
                     <ImageCell ImageSource="ButtonCamera.png" Command="{Binding UseCameraCommand}"/>
             </TableSection>    
         </TableView>
