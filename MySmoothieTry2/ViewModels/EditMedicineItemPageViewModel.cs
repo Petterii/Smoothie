@@ -22,13 +22,23 @@ namespace MySmoothieTry2.ViewModels
     public class EditMedicineItemPageViewModel : BaseViewModel
     {
 
+        const string SAVETITLE = "Save Smoothie";
+        const string SAVEPROMPT = "Proceed and save changes?";
+        const string OKBUTTONTITLE = "OK";
+        const string CANCELBUTTONTITLE = "Cancel";
+
+        const string ERRORTITLE = "Error";
+        const string ERRORPROMPT = "Name and Description are required.";
+        const string SAVEBUTTONTITLE = "Save";
+
+        public string CURRENT_SMOOTHIE_ID;
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
 
         private Realm _realm;
 
-        private IEnumerable<SmoothieItem> smoothie;
-        public IEnumerable<SmoothieItem> Smoothie
+        private Smoothie smoothie;
+        public Smoothie Smoothie
         {
             get
             {
@@ -43,9 +53,21 @@ namespace MySmoothieTry2.ViewModels
         private async Task Initialize()
         {
             _realm = await OpenRealm();
+            Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
 
-            Smoothie = _realm.All<SmoothieItem>().OrderBy(m => m.Name);
-
+            Singleton store = Singleton.Instance;
+            selectedSmoothie = store.SelectedItem;
+            if (selectedSmoothie != null)
+            {
+                CURRENT_SMOOTHIE_ID = selectedSmoothie.Id;
+                Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+            }
+            else 
+            {
+                Smoothie = new Smoothie();
+                Smoothie.Id = Guid.NewGuid().ToString();
+                //Smoothie.Ingredients = new IList<Ingredient>();
+            }
         }
 
         private async Task<Realm> OpenRealm()
@@ -80,30 +102,54 @@ namespace MySmoothieTry2.ViewModels
             }, 
             canExecute: () => true);
 
-            SaveCommand = new Command(
-                execute: () =>
-                {
-                    SaveToDatabase();
+            //SaveCommand = new Command(
+                //execute: () =>
+                //{
+                //    SaveToDatabase();
                  
-                },
-                canExecute: () => true
-                );
-
-            Singleton store = Singleton.Instance;
-            selectedItem = store.SelectedItem;
-            if (selectedItem != null)
-            {
-                BrandNameE = selectedItem.Name;
-                DescriptionE = selectedItem.Description;
-            }
+                //},
+                //canExecute: () => true
+                //);
 
          //   downloadImg();
 
+            AddIngredientCommand = new Command(
+                execute: () =>
+                {
+                    using (var trans = _realm.BeginWrite())
+                    {
+                        Smoothie.Ingredients.Add(new Ingredient() { Name = NewIngredientName });
+                        trans.Commit();
+                    }
+                });
+
+            SaveCommand = new Command(
+
+                execute: () =>
+                {
+                    if (rule.Check(Smoothie.Name) && rule.Check(Smoothie.Description))
+                    
+                    {   
+                        _realm.Write(() =>
+                        {
+                            _realm.Add(Smoothie, update: true);
+                        });
+
+                        Application.Current.MainPage.Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        // TODO Alert Window
+                        Application.Current.MainPage.DisplayAlert(ERRORTITLE,
+                                              ERRORPROMPT,
+                                              OKBUTTONTITLE);
+                    }
+                },
+                canExecute: () => true
+                );
+                
             Initialize().IgnoreResult();
-
         }
-
-   
 
         MediaFile file;
 
@@ -139,90 +185,67 @@ namespace MySmoothieTry2.ViewModels
             return imgurl;
         }
 
+        //internal void SaveToDatabase()
+        //{
+        //    if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
+        //    {
+        //        _realm.WriteAsync((tempRealm) =>
+        //        {
+        //            OnPropertyChanged("BrandNameE");
 
+        //            SmoothieItem newItem = new SmoothieItem();
 
+        //            newItem.Name = BrandNameE;
+        //            newItem.Id = Guid.NewGuid().ToString();
+        //            newItem.Description = DescriptionE;
 
-        internal void SaveToDatabase()
-        {
-            if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
-            {
-                _realm.WriteAsync((tempRealm) =>
-                {
-                    OnPropertyChanged("BrandNameE");
+        //            tempRealm.Add(newItem, true);
+        //        });
 
-                    SmoothieItem newItem = new SmoothieItem();
+        //        Application.Current.MainPage.Navigation.PopAsync();
+        //    }
+        //    else
+        //    {
 
-                    newItem.Name = BrandNameE;
-                    newItem.Id = Guid.NewGuid().ToString();
-                    newItem.Description = DescriptionE;
+        //        Application.Current.MainPage.DisplayAlert(ERRORTITLE,
+        //                              ERRORPROMPT,
+        //                              OKBUTTONTITLE);
+        //    }
+        //}
 
-                    tempRealm.Add(newItem, true);
-                });
-
-                Application.Current.MainPage.Navigation.PopAsync();
-            }
-            else
-            {
-
-                Application.Current.MainPage.DisplayAlert(ERRORTITLE,
-                                      ERRORPROMPT,
-                                      OKBUTTONTITLE);
-            }
-        }
-
-        //MedicineItem selectedItem;
-        //public MedicineItem SelectedItem
-        SmoothieItem selectedItem;
-        public SmoothieItem SelectedItem
+        Smoothie selectedSmoothie;
+        public Smoothie SelectedItem
         {
             get
             {
-                return selectedItem;
+                return selectedSmoothie;
             }
             set
             {
-                SetProperty(ref selectedItem, value);
-
+                SetProperty(ref selectedSmoothie, value);
                 RefreshCanExecute();
             }
         }
 
-        private string brandNameE;
-        public string BrandNameE
+        private string newIngredientName;
+        public string NewIngredientName
         {
             get
             {
-                return brandNameE;
+                return newIngredientName;
             }
             set
             {
-                if (!value.Equals(brandNameE))
+                if (!value.Equals(newIngredientName))
                 {
-                    SetProperty(ref brandNameE, value);
+                    SetProperty(ref newIngredientName, value);
                     RefreshCanExecute();
                 }
             }
         }
-
-        private string descriptionE;
-        public string DescriptionE
-        {
-            get
-            {
-                return descriptionE;
-            }
-            set
-            {
-                if (!value.Equals(descriptionE))
-                {
-                    SetProperty(ref descriptionE, value);
-                    RefreshCanExecute();
-                }
-            }
-        }
-
 
         public ICommand AddCommand { private set; get; }
+        public ICommand AddIngredientCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
         public ICommand UseCameraCommand { private set; get; }
 
@@ -230,6 +253,7 @@ namespace MySmoothieTry2.ViewModels
         private void RefreshCanExecute()
         {
             (SaveCommand as Command).ChangeCanExecute();
+            (AddIngredientCommand as Command).ChangeCanExecute();
         }
     }
     public static class Extensions

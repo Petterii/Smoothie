@@ -28,7 +28,7 @@
                    Intent="Form" HasUnevenRows="true">
                    
             <TableSection Title="Smoothie">
-                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
+                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Smoothie.Name, Mode=TwoWay}"/>
             </TableSection>
             
             <TableSection Title="Ingredients">
@@ -45,13 +45,13 @@
                         </Grid.ColumnDefinitions>
                         <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding NewIngredientName}"/> 
                         <Entry x:Name="ingredientAmount" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)"/> 
-                        <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT"/>
+                        <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT" Command="{Binding AddIngredientCommand}"/>
                     </Grid>
                 </StackLayout>
                 </ViewCell>
                     
                 <ViewCell>
-                   <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding IngredientList}">
+                   <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding Smoothie.Ingredients}">
                        <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextCell Height="50" Text="{Binding Name}"/>
@@ -59,13 +59,12 @@
                        </ListView.ItemTemplate>
                     </ListView>
                 </ViewCell>
-                                
             </TableSection>
             
             <TableSection Title="Description">
                 <ViewCell>
                     <StackLayout Padding="15">
-                        <Editor x:Name="descriptionCell" Text="{Binding DescriptionE, Mode=TwoWay}"/>
+                        <Editor x:Name="descriptionCell" Text="{Binding Smoothie.Description}"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection> 
