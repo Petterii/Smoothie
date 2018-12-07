@@ -107,7 +107,7 @@ namespace MySmoothieTry2.ViewModels
 
         MediaFile file;
 
-        internal async void TakePhoto()
+        public async void TakePhoto()
         {
             await CrossMedia.Current.Initialize();
             try

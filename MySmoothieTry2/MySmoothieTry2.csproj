@@ -22,6 +22,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Validations\" />
     <Folder Include="ImageResourse\" />
+    <Folder Include="CustomControls\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="smoothie.png" />
