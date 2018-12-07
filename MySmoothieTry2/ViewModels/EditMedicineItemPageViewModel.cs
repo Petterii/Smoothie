@@ -45,8 +45,7 @@ namespace MySmoothieTry2.ViewModels
             _realm = await OpenRealm();
 
             Smoothie = _realm.All<SmoothieItem>().OrderBy(m => m.Name);
-
-        }
+                    }
 
         private async Task<Realm> OpenRealm()
         {
@@ -71,7 +70,8 @@ namespace MySmoothieTry2.ViewModels
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)
                 {
-                    TakePhoto();
+
+                   TakePhoto();
                 }
                 else 
                 {
@@ -83,8 +83,9 @@ namespace MySmoothieTry2.ViewModels
             SaveCommand = new Command(
                 execute: () =>
                 {
-                    SaveToDatabase();
-                 
+                     SaveToDatabase();
+                   //  await getImage();
+
                 },
                 canExecute: () => true
                 );
@@ -95,9 +96,17 @@ namespace MySmoothieTry2.ViewModels
             {
                 BrandNameE = selectedItem.Name;
                 DescriptionE = selectedItem.Description;
-            }
+                if (selectedItem.UrlImage == null)
+                {
+                    ThisImage = "ButtonCamera.png";
+                }
+                else ThisImage = selectedItem.UrlImage;
 
-         //   downloadImg();
+            }
+            else ThisImage = "ButtonCamera.png";
+
+
+
 
             Initialize().IgnoreResult();
 
@@ -118,8 +127,9 @@ namespace MySmoothieTry2.ViewModels
                     PhotoSize = PhotoSize.Medium
                 });
  //               var photo = await CrossMedia.Current.TakePhotoAsync(options);
-                await StoreImages(file.GetStream());
-                
+                ThisImage = await StoreImages(file.GetStream());
+              
+
             }
             catch (Exception e)
             {
@@ -130,8 +140,8 @@ namespace MySmoothieTry2.ViewModels
         public async Task<string> StoreImages(Stream imageStream)
         {
             var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
-                .Child("XamarinMonkeys")
-                .Child("image1.jpg")
+                .Child("Smoothies")
+                .Child(Guid.NewGuid().ToString() + ".jpg")
                 .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
 
 
@@ -139,7 +149,7 @@ namespace MySmoothieTry2.ViewModels
             return imgurl;
         }
 
-
+  
 
 
         internal void SaveToDatabase()
@@ -155,6 +165,12 @@ namespace MySmoothieTry2.ViewModels
                     newItem.Name = BrandNameE;
                     newItem.Id = Guid.NewGuid().ToString();
                     newItem.Description = DescriptionE;
+
+                    if (ThisImage != null)
+                    {
+                        newItem.UrlImage = ThisImage;
+                    }
+
 
                     tempRealm.Add(newItem, true);
                 });
@@ -204,6 +220,23 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
+     
+        private string thisImage;
+        public string ThisImage
+        {
+            get
+            {
+                return thisImage;
+            }
+            set
+            {
+                if (!value.Equals(thisImage))
+                {
+                    SetProperty(ref thisImage, value);
+                    RefreshCanExecute();
+                }
+            }
+        }
         private string descriptionE;
         public string DescriptionE
         {

@@ -23,10 +23,10 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+        
         <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Intent="Form" HasUnevenRows="true">
-                   
+         
             <TableSection Title="Smoothie">
                 <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
             </TableSection>
@@ -71,7 +71,7 @@
             </TableSection> 
         </TableView>
             <AbsoluteLayout>
-                    <customControls:ImageButton x:Name="CameraButton" Source="ButtonCamera.png"
+                    <customControls:ImageButton x:Name="CameraButton" Source="{Binding ThisImage}"
                             Command="{Binding UseCameraCommand}"
                             AbsoluteLayout.LayoutFlags="PositionProportional"
                             AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"

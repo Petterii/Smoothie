@@ -8,9 +8,12 @@ namespace MySmoothieTry2.Model
 {
     public class ImageDownload
     {
-        public static IDownloadFile File;
+       // public static IDownloadFile File;
         static bool isDownloading = true;
 
+        //string url = ""https://firebasestorage.googleapis.com/v0/b/smoothieapp-e6257.appspot.com/o/XamarinMonkeys%2Fimage1.jpg?alt=media&token=adba0120-0f3a-4fff-a1fd-47b71ac9fe9a"";
+
+        //ImageDownload.DownloadFile(url);
 
         public static void initDownload() {
 
@@ -24,8 +27,9 @@ namespace MySmoothieTry2.Model
                 );
         }
 
-        public static async void DownloadFile(string FileName)
+        public static async Task DownloadFile(string FileName)
         {
+
             await Task.Yield();
          
             await Task.Run(() =>
@@ -49,6 +53,7 @@ namespace MySmoothieTry2.Model
 
         private static bool IsDownloading(IDownloadFile File)
         {
+          
             if (File == null) return false;
 
             switch (File.Status)
@@ -67,9 +72,9 @@ namespace MySmoothieTry2.Model
             }
         }
 
-        public void AbortDownloading()
-        {
-            CrossDownloadManager.Current.Abort(File);
-        }
+        //public void AbortDownloading()
+        //{
+        //    CrossDownloadManager.Current.Abort(File);
+        //}
     }
 }
