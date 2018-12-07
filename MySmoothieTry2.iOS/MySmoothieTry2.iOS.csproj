@@ -102,46 +102,25 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_20pt%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_20pt%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_29pt%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_29pt%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_40pt%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_40pt%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_60pt%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_60pt%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_20pt.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_29pt.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_40pt.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_76pt.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_76pt%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_83.5%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\ButtonCamera%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ButtonCamera.png.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -177,5 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\smoothie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\ButtonCamera.png.imageset\" />
   </ItemGroup>
 </Project>

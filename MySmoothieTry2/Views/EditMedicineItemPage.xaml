@@ -25,17 +25,7 @@
 
         <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Intent="Form" HasUnevenRows="true">
-                
-                <TableSection>        
-                    <ViewCell>
-                            <StackLayout Padding="5" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                <Image x:Name="BlenderImage" Aspect="AspectFit" Source="blender.png" 
-                                                WidthRequest="70" HeightRequest="70" VerticalOptions="FillAndExpand"/>
-                                <Button Text="Take photo" Command="{Binding UseCameraCommand}" />
-                            </StackLayout>
-                        </ViewCell>
-                </TableSection>
-                
+                   
             <TableSection Title="Smoothie">
                 <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding BrandNameE, Mode=TwoWay}"/>
             </TableSection>
@@ -78,6 +68,10 @@
                     </StackLayout>
                 </ViewCell>
             </TableSection>
+                
+            <TableSection>
+                    <ImageCell ImageSource="ButtonCamera.png" Command="{Binding UseCameraCommand}"/>
+            </TableSection>    
         </TableView>
     </Grid>
         
