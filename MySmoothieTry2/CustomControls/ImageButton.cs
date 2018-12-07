@@ -15,14 +15,23 @@ namespace MySmoothieTry2.CustomControls
 
         public event EventHandler ItemTapped = (e, a) => { };
 
+
         public ImageButton()
         {
             Initialize();
         }
 
+        public void Initialize()
+        {
+            GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = TransitionCommand
+            });
+        }
+
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
+            get { return (ICommand) GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -32,13 +41,12 @@ namespace MySmoothieTry2.CustomControls
             set { SetValue(CommandParameterProperty, value); }
         }
 
-        private ICommand TransitionCommand
+        ICommand TransitionCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-                    Console.WriteLine("ENTERED!!!");
                     AnchorX = 0.48;
                     AnchorY = 0.48;
                     await this.ScaleTo(0.8, 50, Easing.Linear);
@@ -49,14 +57,6 @@ namespace MySmoothieTry2.CustomControls
                     ItemTapped(this, EventArgs.Empty);
                 });
             }
-        }
-
-        public void Initialize()
-        {
-            GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = TransitionCommand
-            });
         }
     }
 }
