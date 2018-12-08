@@ -174,8 +174,7 @@ namespace MySmoothieTry2.ViewModels
             await CrossMedia.Current.Initialize();
             try
             {
-                var options = new StoreCameraMediaOptions() { };
-                file = await CrossMedia.Current.TakePhotoAsync(new PickMediaOptions
+                file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
                 {
                     PhotoSize = PhotoSize.Medium
                 });

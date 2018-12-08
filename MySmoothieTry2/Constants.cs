@@ -1,11 +1,12 @@
-﻿using System;
-namespace MySmoothieTry2
+﻿namespace MySmoothieTry2
 {
     public class Constants
     {
+        // Realm
         public static string AuthUrl = "https://petes-bananas-workshop.de1a.cloud.realm.io";
         public static string RealmPath = "Movies";
 
+        // Add/Edit Smoothie
         public  const string SAVETITLE = "Save Smoothie";
         public const string SAVEPROMPT = "Proceed and save changes?";
         public const string OKBUTTONTITLE = "OK";
@@ -17,5 +18,9 @@ namespace MySmoothieTry2
         public const string SAVEBUTTONTITLE = "Save";
 
         public const string CAMERAUNAVAILABLE = "Camera isn't available...";
+
+        // Image dowloading
+        public const string DOWNLOADTITLE = "File Status";
+        public const string DOWNLOADPROMPT = "File Downloaded";
     }
 }
