@@ -7,7 +7,7 @@
  <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
  </ContentPage.Icon>
     <ContentPage.Content>
-           <Label Text="This app allows you to take photos of your favorite smoothies. You can also save the ingredients you used!" />
+           <Label Text="This app allows you to upload photos of your favorite smoothies to Firebase. The photo has to be on your phone already. You can save the ingredients you used for future reference!" />
 
     </ContentPage.Content>
 </ContentPage>
