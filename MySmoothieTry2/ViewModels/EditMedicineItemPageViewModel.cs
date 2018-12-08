@@ -21,16 +21,6 @@ namespace MySmoothieTry2.ViewModels
 {
     public class EditMedicineItemPageViewModel : BaseViewModel
     {
-
-        const string SAVETITLE = "Save Smoothie";
-        const string SAVEPROMPT = "Proceed and save changes?";
-        const string OKBUTTONTITLE = "OK";
-        const string CANCELBUTTONTITLE = "Cancel";
-
-        const string ERRORTITLE = "Error";
-        const string ERRORPROMPT = "Name and Description are required.";
-        const string SAVEBUTTONTITLE = "Save";
-
         public string CURRENT_SMOOTHIE_ID;
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
@@ -102,7 +92,6 @@ namespace MySmoothieTry2.ViewModels
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)
                 {
-
                    TakePhoto();
                 }
                 else 
@@ -186,14 +175,12 @@ namespace MySmoothieTry2.ViewModels
             try
             {
                 var options = new StoreCameraMediaOptions() { };
-                file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                file = await CrossMedia.Current.TakePhotoAsync(new PickMediaOptions
                 {
                     PhotoSize = PhotoSize.Medium
                 });
- //               var photo = await CrossMedia.Current.TakePhotoAsync(options);
-                ThisImage = await StoreImages(file.GetStream());
-              
 
+                ThisImage = await StoreImages(file.GetStream());
             }
             catch (Exception e)
             {

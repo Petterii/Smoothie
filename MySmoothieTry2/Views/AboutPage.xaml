@@ -7,6 +7,7 @@
  <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
  </ContentPage.Icon>
     <ContentPage.Content>
-           <Label Text="THIS IS ABOUT TO GET SERIOUS..." />
+           <Label Text="This app allows you to take photos of your favorite smoothies. You can also save the ingredients you used!" />
+
     </ContentPage.Content>
 </ContentPage>
