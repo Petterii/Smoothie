@@ -11,7 +11,7 @@ namespace MySmoothieTry2.Views
         {
             InitializeComponent();
 
-            smoothieNameCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
+            //smoothieNameCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
             ingredientName.Keyboard = Keyboard.Create(KeyboardFlags.None);
 

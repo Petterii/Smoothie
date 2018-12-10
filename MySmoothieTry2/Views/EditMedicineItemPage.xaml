@@ -16,6 +16,11 @@
     
     
     <ContentPage.Content>     
+      
+       <StackLayout>
+<!--         <Image Source="{Binding ThisImage}" />    -->
+  
+        
         
         <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +35,7 @@
             
         <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Intent="Form" HasUnevenRows="true">
-           <Image Source="icon.png"></Image>
+          
             <TableSection Title="Smoothie">
                 <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Smoothie.Name, Mode=TwoWay}"/>
             </TableSection>
@@ -75,12 +80,12 @@
         </TableView>
             <AbsoluteLayout>
 
-                    <customControls:ImageButton x:Name="CameraButton" Source="{Binding ThisImage}"
+                    <customControls:ImageButton x:Name="CameraButton" Source="ButtonCamera.png"
                             Command="{Binding UseCameraCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1" HorizontalOptions="Center" Margin="10">
 
                     </customControls:ImageButton>    
             </AbsoluteLayout>
     </Grid>
-        
+        </StackLayout>
    </ContentPage.Content>
 </ContentPage>
