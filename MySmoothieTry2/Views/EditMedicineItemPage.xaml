@@ -13,7 +13,10 @@
             <ToolbarItem Name="Save" Order="Primary" Priority="0" Command="{Binding SaveCommand}"/>
         </ContentPage.ToolbarItems>
       
-    <ContentPage.Content>        
+    
+    
+    <ContentPage.Content>     
+        
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,10 +26,11 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+     
+            
         <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Intent="Form" HasUnevenRows="true">
-         
+           <Image Source="icon.png"></Image>
             <TableSection Title="Smoothie">
                 <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Smoothie.Name, Mode=TwoWay}"/>
             </TableSection>

@@ -141,6 +141,7 @@ namespace MySmoothieTry2.ViewModels
                     {   
                         _realm.Write(() =>
                         {
+                            Smoothie.UrlImage = ThisImage;
                             _realm.Add(Smoothie, update: true);
                         });
 
