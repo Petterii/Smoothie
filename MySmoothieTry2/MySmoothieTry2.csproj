@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Model\Smoothie.cs" />
+    <Compile Remove="Resources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

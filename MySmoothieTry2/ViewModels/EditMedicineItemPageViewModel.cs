@@ -21,21 +21,11 @@ namespace MySmoothieTry2.ViewModels
 {
     public class EditMedicineItemPageViewModel : BaseViewModel
     {
-
-        const string SAVETITLE = "Save Smoothie";
-        const string SAVEPROMPT = "Proceed and save changes?";
-        const string OKBUTTONTITLE = "OK";
-        const string CANCELBUTTONTITLE = "Cancel";
-
-        const string ERRORTITLE = "Error";
-        const string ERRORPROMPT = "Name and Description are required.";
-        const string SAVEBUTTONTITLE = "Save";
-
         public string CURRENT_SMOOTHIE_ID;
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
 
-        private Realm _realm;
+        Realm _realm;
 
         private Smoothie smoothie;
         public Smoothie Smoothie
@@ -50,7 +40,7 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        private async Task Initialize()
+        async Task Initialize()
         {
             _realm = await OpenRealm();
             Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
@@ -64,7 +54,7 @@ namespace MySmoothieTry2.ViewModels
 
                 if (selectedSmoothie.UrlImage == null)
                 {
-                    ThisImage = "ButtonCamera.png";
+                    ThisImage = CAMERABUTTONIMAGE;
                 }
                 else ThisImage = selectedSmoothie.UrlImage; 
                 // ThisImage = Smoothie.UrlImage ist. för ovan?
@@ -75,7 +65,7 @@ namespace MySmoothieTry2.ViewModels
                 Smoothie = new Smoothie();
                 Smoothie.Id = Guid.NewGuid().ToString();
                 //Smoothie.Ingredients = new IList<Ingredient>();
-                ThisImage = "ButtonCamera.png";
+                ThisImage = CAMERABUTTONIMAGE;
             }
         }
 
@@ -84,13 +74,16 @@ namespace MySmoothieTry2.ViewModels
             var user = User.Current;
             if (user != null)
             {
-                var config = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
+                var config = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
                 // User has already logged in, so we can just load the existing data in the Realm.
                 return Realm.GetInstance(config);
             }
-            var credentials = Credentials.UsernamePassword("test", "testt", createUser: false);
+            var credentials = Credentials.UsernamePassword(USERNAME, 
+                                                           PASSWORD, 
+                                                           createUser: false);
+
             user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-            var configuration = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
+            var configuration = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
             // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
             // before letting them interract with the UI.
             var realm = await Realm.GetInstanceAsync(configuration);
@@ -102,7 +95,6 @@ namespace MySmoothieTry2.ViewModels
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)
                 {
-
                    TakePhoto();
                 }
                 else 
@@ -149,7 +141,6 @@ namespace MySmoothieTry2.ViewModels
                     }
                     else
                     {
-                        // TODO Alert Window
                         Application.Current.MainPage.DisplayAlert(ERRORTITLE,
                                               ERRORPROMPT,
                                               OKBUTTONTITLE);
@@ -186,15 +177,12 @@ namespace MySmoothieTry2.ViewModels
             await CrossMedia.Current.Initialize();
             try
             {
-                var options = new StoreCameraMediaOptions() { };
                 file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
                 {
                     PhotoSize = PhotoSize.Medium
                 });
- //               var photo = await CrossMedia.Current.TakePhotoAsync(options);
-                ThisImage = await StoreImages(file.GetStream());
-              
 
+                ThisImage = await StoreImages(file.GetStream());
             }
             catch (Exception e)
             {

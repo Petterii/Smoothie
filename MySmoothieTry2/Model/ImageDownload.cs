@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Plugin.DownloadManager;
 using Plugin.DownloadManager.Abstractions;
 using Xamarin.Forms;
+using static MySmoothieTry2.Constants;
 
 namespace MySmoothieTry2.Model
 {
@@ -47,7 +48,9 @@ namespace MySmoothieTry2.Model
 
             if (!isDownloading)
             {
-                await Application.Current.MainPage.DisplayAlert("File Status", "File Downloaded", "OK");
+                await Application.Current.MainPage.DisplayAlert(DOWNLOADTITLE, 
+                                                                DOWNLOADPROMPT, 
+                                                                OKBUTTONTITLE);
             }
         }
 

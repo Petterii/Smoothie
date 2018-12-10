@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Realms;
 using Realms.Sync;
+using static MySmoothieTry2.Constants;
 
 namespace MySmoothieTry2.Model
 {
@@ -13,13 +14,13 @@ namespace MySmoothieTry2.Model
             var user = User.Current;
             if (user != null)
             {
-                var config = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
+                var config = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
                 // User has already logged in, so we can just load the existing data in the Realm.
                 return Realm.GetInstance(config);
             }
-            var credentials = Credentials.UsernamePassword("test", "test", createUser: false);
+            var credentials = Credentials.UsernamePassword(USERNAME, PASSWORD, createUser: false);
             user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-            var configuration = new FullSyncConfiguration(new Uri(Constants.RealmPath, UriKind.Relative), user);
+            var configuration = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
             // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
             // before letting them interract with the UI.
             var realm = await Realm.GetInstanceAsync(configuration);
