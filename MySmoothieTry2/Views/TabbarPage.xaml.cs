@@ -11,5 +11,8 @@ namespace MySmoothieTry2.Views
         {
             InitializeComponent();
         }
+
+
+ 
     }
 }

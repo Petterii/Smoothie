@@ -31,5 +31,7 @@ namespace MySmoothieTry2
         {
             // Handle when your app resumes
         }
+
+
     }
 }

@@ -3,7 +3,9 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:MySmoothieTry2.Views;assembly=MySmoothieTry2"
             x:Class="MySmoothieTry2.Views.TabbarPage"
-            Title="Smoothies">
+            Title="Smoothies"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.IsSwipePagingEnabled="False">
 
     <local:MedicineListPage/>
     
