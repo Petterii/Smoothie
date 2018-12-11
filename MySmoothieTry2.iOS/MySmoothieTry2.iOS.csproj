@@ -127,6 +127,14 @@
     <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen.png" />
     <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen%402x.png" />
     <ImageAsset Include="Assets.xcassets\appLaunchScreen.imageset\AppLaunchScreen%403x.png" />
+    <ImageAsset Include="Assets.xcassets\TabListIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TabListIcon.imageset\TabListIcon.png" />
+    <ImageAsset Include="Assets.xcassets\TabListIcon.imageset\TabListIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\TabListIcon.imageset\TabListIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\TabAboutIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TabAboutIcon.imageset\TabAboutIcon.png" />
+    <ImageAsset Include="Assets.xcassets\TabAboutIcon.imageset\TabAboutIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\TabAboutIcon.imageset\TabAboutIcon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -166,5 +174,7 @@
   <ItemGroup>
     <Folder Include="Assets.xcassets\ButtonCamera.png.imageset\" />
     <Folder Include="Assets.xcassets\appLaunchScreen.imageset\" />
+    <Folder Include="Assets.xcassets\TabListIcon.imageset\" />
+    <Folder Include="Assets.xcassets\TabAboutIcon.imageset\" />
   </ItemGroup>
 </Project>
