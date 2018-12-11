@@ -1,91 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
-             xmlns:customControls="clr-namespace:MySmoothieTry2.CustomControls;assembly=MySmoothieTry2"
-             x:Class="MySmoothieTry2.Views.EditSmoothieItemPage"
-             Title="Adding/Editing">
-    
-        <ContentPage.BindingContext>
-        <vm:EditSmoothieItemPageViewModel/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2" xmlns:customControls="clr-namespace:MySmoothieTry2.CustomControls;assembly=MySmoothieTry2" x:Class="MySmoothieTry2.Views.EditSmoothieItemPage" Title="Adding/Editing">
+    <ContentPage.BindingContext>
+        <vm:EditSmoothieItemPageViewModel />
     </ContentPage.BindingContext>
-           <ContentPage.ToolbarItems>
-            <ToolbarItem Name="Save" Order="Primary" Priority="0" Command="{Binding SaveCommand}"/>
-        </ContentPage.ToolbarItems>
-      
-    
-    
-    <ContentPage.Content>     
-      
-       <StackLayout>
-<!--         <Image Source="{Binding ThisImage}" />    -->
-  
-        
-        
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Save" Order="Primary" Priority="0" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+        <!--         <Image Source="{Binding ThisImage}" />    -->
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-     
-            
-        <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
-                   Intent="Form" HasUnevenRows="true">
-          
-            <TableSection Title="Smoothie">
-                <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Smoothie.Name, Mode=TwoWay}"/>
-            </TableSection>
-            
-            <TableSection Title="Ingredients">
-                <ViewCell>
-                <StackLayout Padding="5" Orientation="Vertical">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding NewIngredientName}"/> 
-                        <Entry x:Name="ingredientAmount" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)"/> 
-                        <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT" Command="{Binding AddIngredientCommand}"/>
-                    </Grid>
-                </StackLayout>
-                </ViewCell>
-                    
-                <ViewCell>
-                   <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding Smoothie.Ingredients}">
-                       <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Height="50" Text="{Binding Name}"/>
-                            </DataTemplate>    
-                       </ListView.ItemTemplate>
-                    </ListView>
-                </ViewCell>
-            </TableSection>
-            
-            <TableSection Title="Description">
-                <ViewCell>
-                    <StackLayout Padding="15">
-                        <Editor x:Name="descriptionCell" Text="{Binding Smoothie.Description}"/>
-                    </StackLayout>
-                </ViewCell>
-            </TableSection> 
-        </TableView>
-            <AbsoluteLayout>
-
-                    <customControls:ImageButton x:Name="CameraButton" Source="ButtonCamera.png"
-                            Command="{Binding UseCameraCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="2.25,1,-1,-1" HorizontalOptions="Center">
-
-                    </customControls:ImageButton>    
-            </AbsoluteLayout>
-    </Grid>
-        </StackLayout>
-   </ContentPage.Content>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TableView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Intent="Form" HasUnevenRows="true">
+                <TableSection Title="Smoothie">
+                    <EntryCell x:Name="smoothieNameCell" Label="Name:" Text="{Binding Smoothie.Name, Mode=TwoWay}" />
+                </TableSection>
+                <TableSection Title="Ingredients">
+                    <ViewCell>
+                        <StackLayout Padding="5" Orientation="Vertical">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding NewIngredientName}" />
+                                <Entry x:Name="ingredientAmount" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)" />
+                                <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT" Command="{Binding AddIngredientCommand}" />
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding Smoothie.Ingredients}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Height="50" Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="Description">
+                    <ViewCell>
+                        <StackLayout Padding="15">
+                            <Editor x:Name="descriptionCell" Text="{Binding Smoothie.Description}" />
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableView>
+        </Grid>
+        <customControls:ImageButton x:Name="CameraButton" Source="ButtonCamera.png" Command="{Binding UseCameraCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,1,-1,-1" HorizontalOptions="Center">
+        </customControls:ImageButton>
+    </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
