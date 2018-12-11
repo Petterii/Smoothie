@@ -133,6 +133,7 @@ namespace MySmoothieTry2.ViewModels
                     {   
                         _realm.Write(() =>
                         {
+
                             Smoothie.UrlImage = ThisImage;
                             _realm.Add(Smoothie, update: true);
                         });
@@ -266,6 +267,10 @@ namespace MySmoothieTry2.ViewModels
         {
             get
             {
+                if (thisImage == null)
+                {
+                    thisImage = "smoothie.png";
+                }
                 return thisImage;
             }
             set

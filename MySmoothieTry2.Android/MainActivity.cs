@@ -6,8 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Plugin.DownloadManager;
-using Plugin.DownloadManager.Abstractions;
+
 using System.IO;
 using System.Linq;
 

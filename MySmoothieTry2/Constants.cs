@@ -6,7 +6,7 @@
         public static string AuthUrl = "https://petes-bananas-workshop.de1a.cloud.realm.io";
         public static string REALMPATH = "Movies";
         public static string USERNAME = "test";
-        public static string PASSWORD = "testt";
+        public static string PASSWORD = "test";
 
         // Add/Edit Smoothie
         public const string SAVETITLE = "Save Smoothie";
