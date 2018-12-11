@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace MySmoothieTry2.Views
 {
-    public partial class EditMedicineItemPage : ContentPage
+    public partial class EditSmoothieItemPage : ContentPage
     {
-        public EditMedicineItemPage()
+        public EditSmoothieItemPage()
         {
             InitializeComponent();
 
