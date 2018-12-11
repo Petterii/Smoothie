@@ -27,11 +27,11 @@ namespace MySmoothieTry2.Model
             return realm;
         }
 
-        public static async void DeleteItem(Realm _realm, RealmObject item)
+        public static void DeleteItem(Realm _realm, RealmObject item)
         {
-            await _realm.WriteAsync((t) =>
+             _realm.Write(() =>
             {
-                t.Remove((RealmObject)item);
+                _realm.Remove((RealmObject)item);
             });
         }
     }

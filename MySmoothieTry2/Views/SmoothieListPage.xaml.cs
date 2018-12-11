@@ -17,7 +17,8 @@ namespace MySmoothieTry2.Views
         {
             InitializeComponent();
 
-            ImageDownload.initDownload();
+         
+
    
         }
 

@@ -29,7 +29,7 @@ namespace MySmoothieTry2.ViewModels
             }
             set
             {
-                //smoothies = value;
+                smoothies = value;
                 SetProperty(ref smoothies, value);
             }
         }
@@ -47,28 +47,12 @@ namespace MySmoothieTry2.ViewModels
 
         private async Task Initialize()
         {
-            _realm = await OpenRealm();
+            _realm = await RealmFunctions.OpenRealm();
             Smoothies = _realm.All<Smoothie>().OrderBy(m => m.Name);
           //  string x = "hello";
         }
 
-        public static async Task<Realm> OpenRealm()
-        {
-            var user = User.Current;
-            if (user != null)
-            {
-                var config = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-                // User has already logged in, so we can just load the existing data in the Realm.
-                return Realm.GetInstance(config);
-            }
-            var credentials = Credentials.UsernamePassword(USERNAME, PASSWORD, createUser: false);
-            user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-            var configuration = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-            // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
-            // before letting them interract with the UI.
-            var realm = await Realm.GetInstanceAsync(configuration);
-            return realm;
-        }
+
 
 
         private void initICommands()
@@ -76,13 +60,9 @@ namespace MySmoothieTry2.ViewModels
             DeleteCommand = new Command(
               execute: (item) =>
               {
-                    // TODO Delete from realm
-                    _realm.Write(() =>
-                  {
-                      _realm.Remove((RealmObject)item);
-                  });
+                  // TODO Delete from realm
+                  RealmFunctions.DeleteItem(_realm, (RealmObject)item);
 
-              
               },
               canExecute: (item) => true
               );
@@ -91,7 +71,7 @@ namespace MySmoothieTry2.ViewModels
                 execute: () =>
                 {
                     Singleton store = Singleton.Instance;
-                    store.SelectedItem = null;
+                    store.CURRENT_SMOOTHIE_ID = null;
                     Application.Current.MainPage.Navigation.PushAsync(new EditSmoothieItemPage());
                 },
                 canExecute: () => true
@@ -110,7 +90,7 @@ namespace MySmoothieTry2.ViewModels
             set
             {
                 Singleton store = Singleton.Instance;
-                store.SelectedItem = value;
+                store.CURRENT_SMOOTHIE_ID = value.Id;
                 selectedItem = value;
                 if (value != null)
                 {
@@ -118,8 +98,6 @@ namespace MySmoothieTry2.ViewModels
                 }
             }
         }
-
-
 
     }
  

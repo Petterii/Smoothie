@@ -42,53 +42,34 @@ namespace MySmoothieTry2.ViewModels
 
         async Task Initialize()
         {
-            _realm = await OpenRealm();
-            Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+            _realm = await RealmFunctions.OpenRealm();
 
-            Singleton store = Singleton.Instance;
-            selectedSmoothie = store.SelectedItem;
-            if (selectedSmoothie != null)
+
+             Singleton store = Singleton.Instance;
+             CURRENT_SMOOTHIE_ID = store.CURRENT_SMOOTHIE_ID;
+             store.CURRENT_SMOOTHIE_ID = null;
+
+            Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+            if (CURRENT_SMOOTHIE_ID != null)
             {
-                CURRENT_SMOOTHIE_ID = selectedSmoothie.Id;
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
 
-                if (selectedSmoothie.UrlImage == null)
+                if (Smoothie.UrlImage == null)
                 {
                     ThisImage = CAMERABUTTONIMAGE;
                 }
-                else ThisImage = selectedSmoothie.UrlImage; 
-                // ThisImage = Smoothie.UrlImage ist. för ovan?
-
+                else ThisImage = Smoothie.UrlImage; 
             }
             else 
             {
                 Smoothie = new Smoothie();
                 Smoothie.Id = Guid.NewGuid().ToString();
-                //Smoothie.Ingredients = new IList<Ingredient>();
+             
                 ThisImage = CAMERABUTTONIMAGE;
             }
         }
 
-        private async Task<Realm> OpenRealm()
-        {
-            var user = User.Current;
-            if (user != null)
-            {
-                var config = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-                // User has already logged in, so we can just load the existing data in the Realm.
-                return Realm.GetInstance(config);
-            }
-            var credentials = Credentials.UsernamePassword(USERNAME, 
-                                                           PASSWORD, 
-                                                           createUser: false);
-
-            user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-            var configuration = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-            // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
-            // before letting them interract with the UI.
-            var realm = await Realm.GetInstanceAsync(configuration);
-            return realm;
-        }
+  
 
         public EditSmoothieItemPageViewModel()
         {
@@ -103,16 +84,6 @@ namespace MySmoothieTry2.ViewModels
                 }
             }, 
             canExecute: () => true);
-
-            //SaveCommand = new Command(
-                //execute: () =>
-                //{
-                //    SaveToDatabase();
-                //    //  await getImage();
-
-                //},
-                //canExecute: () => true
-                //);
 
             AddIngredientCommand = new Command(
                 execute: () =>
@@ -133,7 +104,6 @@ namespace MySmoothieTry2.ViewModels
                     {   
                         _realm.Write(() =>
                         {
-
                             Smoothie.UrlImage = ThisImage;
                             _realm.Add(Smoothie, update: true);
                         });
@@ -150,24 +120,7 @@ namespace MySmoothieTry2.ViewModels
                 canExecute: () => true
                 );
                 
-                   //  SaveToDatabase();
-                   //  await getImage();
-
-            //Singleton store = Singleton.Instance;
-            //selectedItem = store.SelectedItem;
-            //if (selectedItem != null)
-            //{
-            //    BrandNameE = selectedItem.Name;
-            //    DescriptionE = selectedItem.Description;
-            //    if (selectedItem.UrlImage == null)
-            //    {
-            //        ThisImage = "ButtonCamera.png";
-            //    }
-            //    else ThisImage = selectedItem.UrlImage;
-
-            //}
-            //else ThisImage = "ButtonCamera.png";
-
+         
             Initialize().IgnoreResult();
         }
 
@@ -203,47 +156,6 @@ namespace MySmoothieTry2.ViewModels
             return imgurl;
         }
 
-        //internal void SaveToDatabase()
-        //{
-        //    if (rule.Check(BrandNameE) && rule.Check(DescriptionE))
-        //    {
-        //        _realm.WriteAsync((tempRealm) =>
-        //        {
-        //            OnPropertyChanged("BrandNameE");
-
-        //            SmoothieItem newItem = new SmoothieItem();
-        //            newItem.Name = BrandNameE;
-        //            newItem.Id = Guid.NewGuid().ToString();
-        //            newItem.Description = DescriptionE;
-
-        //            tempRealm.Add(newItem, true);
-        //        });
-
-        //        Application.Current.MainPage.Navigation.PopAsync();
-        //    }
-        //    else
-        //    {
-
-        //        Application.Current.MainPage.DisplayAlert(ERRORTITLE,
-        //                              ERRORPROMPT,
-        //                              OKBUTTONTITLE);
-        //    }
-        //}
-
-        Smoothie selectedSmoothie;
-        public Smoothie SelectedSmoothie
-        {
-            get
-            {
-                return selectedSmoothie;
-            }
-            set
-            {
-                SetProperty(ref selectedSmoothie, value);
-
-                RefreshCanExecute();
-            }
-        }
 
         private string newIngredientName;
         public string NewIngredientName
