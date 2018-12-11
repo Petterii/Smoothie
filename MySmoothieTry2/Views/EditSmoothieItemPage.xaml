@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
              xmlns:customControls="clr-namespace:MySmoothieTry2.CustomControls;assembly=MySmoothieTry2"
-             x:Class="MySmoothieTry2.Views.EditMedicineItemPage"
+             x:Class="MySmoothieTry2.Views.EditSmoothieItemPage"
              Title="Adding/Editing">
     
         <ContentPage.BindingContext>
-        <vm:EditMedicineItemPageViewModel/>
+        <vm:EditSmoothieItemPageViewModel/>
     </ContentPage.BindingContext>
            <ContentPage.ToolbarItems>
             <ToolbarItem Name="Save" Order="Primary" Priority="0" Command="{Binding SaveCommand}"/>

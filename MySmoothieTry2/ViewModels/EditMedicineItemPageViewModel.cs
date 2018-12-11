@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace MySmoothieTry2.ViewModels
 {
-    public class EditMedicineItemPageViewModel : BaseViewModel
+    public class EditSmoothieItemPageViewModel : BaseViewModel
     {
         public string CURRENT_SMOOTHIE_ID;
 
@@ -90,7 +90,7 @@ namespace MySmoothieTry2.ViewModels
             return realm;
         }
 
-        public EditMedicineItemPageViewModel()
+        public EditSmoothieItemPageViewModel()
         {
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)

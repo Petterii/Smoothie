@@ -12,7 +12,7 @@ using static MySmoothieTry2.Constants;
 
 namespace MySmoothieTry2.ViewModels
 {
-    public class MedicineListPageViewModel : BaseViewModel
+    public class SmoothieListPageViewModel : BaseViewModel
     {
 
         private Realm _realm;
@@ -35,7 +35,7 @@ namespace MySmoothieTry2.ViewModels
         }
 
     
-        public MedicineListPageViewModel()
+        public SmoothieListPageViewModel()
         {
 
             initICommands();
@@ -92,7 +92,7 @@ namespace MySmoothieTry2.ViewModels
                 {
                     Singleton store = Singleton.Instance;
                     store.SelectedItem = null;
-                    Application.Current.MainPage.Navigation.PushAsync(new EditMedicineItemPage());
+                    Application.Current.MainPage.Navigation.PushAsync(new EditSmoothieItemPage());
                 },
                 canExecute: () => true
                 );
@@ -114,7 +114,7 @@ namespace MySmoothieTry2.ViewModels
                 selectedItem = value;
                 if (value != null)
                 {
-                    Application.Current.MainPage.Navigation.PushAsync(new EditMedicineItemPage());
+                    Application.Current.MainPage.Navigation.PushAsync(new EditSmoothieItemPage());
                 }
             }
         }

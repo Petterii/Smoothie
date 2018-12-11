@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MySmoothieTry2.Views
 {
-    public partial class MedicineListPage : ContentPage
+    public partial class SmoothieListPage : ContentPage
     {
 
 
-        public MedicineListPage()
+        public SmoothieListPage()
         {
             InitializeComponent();
 
