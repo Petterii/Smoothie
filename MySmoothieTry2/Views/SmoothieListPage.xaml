@@ -34,7 +34,7 @@
                                 <StackLayout x:Name="DetailsLayout" Padding="10,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
                                 
-                                    <Label Text="{Binding Description}" FontAttributes="Bold" FontSize="12" TextColor="Blue" />
+                                    
 
                             </StackLayout>
                         </StackLayout>
