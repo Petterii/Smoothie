@@ -77,7 +77,7 @@ namespace MySmoothieTry2.ViewModels
                 Ingredients = Smoothie.Ingredients.ToObservableCollection();
                 if (Smoothie.UrlImage == null)
                 {
-                    ThisImage = CAMERABUTTONIMAGE;
+                    ThisImage = SMOOTHIEIMAGE;
                 }
                 else ThisImage = Smoothie.UrlImage; 
             }
@@ -87,7 +87,7 @@ namespace MySmoothieTry2.ViewModels
                 Ingredients = new ObservableCollection<Ingredient>();
                 Smoothie.Id = Guid.NewGuid().ToString();
 
-                ThisImage = CAMERABUTTONIMAGE;
+                ThisImage = SMOOTHIEIMAGE;
             }
         }
 
