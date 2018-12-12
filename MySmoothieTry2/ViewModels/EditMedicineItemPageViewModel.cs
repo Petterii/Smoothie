@@ -104,12 +104,7 @@ namespace MySmoothieTry2.ViewModels
                 execute: () =>
                 {
                     Ingredients.Add(new Ingredient() { Name = NewIngredientName });
-                   //  RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
-                    using (var trans = _realm.BeginWrite())
-                    {
-                        Smoothie.Ingredients.Add(new Ingredient() { Name = NewIngredientName });
-                        trans.Commit();
-                    }
+                    RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
                 });
 
             SaveCommand = new Command(
