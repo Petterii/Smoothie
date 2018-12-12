@@ -75,6 +75,7 @@ namespace MySmoothieTry2.ViewModels
 
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
                 Ingredients = Smoothie.Ingredients.ToObservableCollection();
+
                 if (Smoothie.UrlImage == null)
                 {
                     ThisImage = CAMERABUTTONIMAGE;
