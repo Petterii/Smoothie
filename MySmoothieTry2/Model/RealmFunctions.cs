@@ -56,6 +56,23 @@ namespace MySmoothieTry2.Model
         }
 
 
+        public static void AddKcal(Realm _realm, Smoothie item, int kcal)
+        {
+            using (var trans = _realm.BeginWrite())
+            {
+                item.Kcal = kcal;
+                trans.Commit();
+            }
+        }
+
+        public static void AddImage(Realm _realm, Smoothie item, string imgurl)
+        {
+            using (var trans = _realm.BeginWrite())
+            {
+                item.UrlImageI = imgurl;
+                trans.Commit();
+            }
+        }
 
         // should probbly be in a new class .. ex. FirebaseFunctions
         public static async Task<string> StoreImages(Stream imageStream)

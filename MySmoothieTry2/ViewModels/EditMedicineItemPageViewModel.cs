@@ -75,6 +75,7 @@ namespace MySmoothieTry2.ViewModels
 
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
                 Ingredients = Smoothie.Ingredients.ToObservableCollection();
+                Kcal = Smoothie.Kcal;
                 if (Smoothie.UrlImage == null)
                 {
                     ThisImage = CAMERABUTTONIMAGE;
@@ -96,13 +97,13 @@ namespace MySmoothieTry2.ViewModels
             UseCameraCommand = new Command(execute: () => {
                 if (CrossMedia.Current.IsCameraAvailable)
                 {
-                   TakePhoto();
+                    TakePhoto();
                 }
-                else 
+                else
                 {
                     Console.WriteLine(CAMERAUNAVAILABLE);
                 }
-            }, 
+            },
             canExecute: () => true);
 
             AddIngredientCommand = new Command(
@@ -113,15 +114,18 @@ namespace MySmoothieTry2.ViewModels
                 },
                 canExecute: () => false);
 
-            //MILJA TEST START
             AddIngredientToSmoothieCommand = new Command(
                 execute: async () =>
                 {
-                    await InitializeGetIngredientAsync();   // Fetches FoodURI
+                    await InitializeGetIngredientAsync();
                     NutritionPOST post = new NutritionPOST();
                     post.foodURI = FoodURI;
-                    // TODO: Add and bind quantity (now hardcoded to 100)
+                    post.quantity = Quantity;
                     _nutritionModelPOST.ingredients.Add(post);
+
+                    Ingredients.Add(new Ingredient() { Name = SingleIngredient });
+                    RealmFunctions.AddIngredient(_realm, Smoothie, SingleIngredient);
+                    // TODO: Clear entry fields for Ingredient and Quantity
                 },
                 canExecute: () => true);
 
@@ -130,29 +134,30 @@ namespace MySmoothieTry2.ViewModels
                 {
                     var jsonContent = _nutritionModelPOST;
                     long kcal = 0;
+                    if (Smoothie.Kcal != 0)
+                    {
+                        kcal = Smoothie.Kcal;
+                    }
 
                     foreach (var i in _nutritionModelPOST.ingredients)
                     {
                         NutritionModelPOST model = new NutritionModelPOST();
                         model.ingredients.Add(i);
-                        // just to check contents of model object, can be removed
                         NutritionPostReply = await _ingredientServices.GetNutritionDetails(model).ConfigureAwait(false);
                         kcal = kcal + NutritionPostReply.Calories;
                     }
                     Kcal = kcal;
                 });
-            //MILJA TEST END
+        
 
             SaveCommand = new Command(
                 execute: () =>
                 {
                     if (rule.Check(Smoothie.Name))
-                    
                     {
-                        Smoothie.UrlImage = ThisImage;
-
+                        RealmFunctions.AddImage(_realm, Smoothie, ThisImage);
                         RealmFunctions.SaveItem(_realm, Smoothie);
-
+                        RealmFunctions.AddKcal(_realm, Smoothie, (int)Kcal);
                         Application.Current.MainPage.Navigation.PopAsync();
                     }
                     else
@@ -226,8 +231,7 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        // MILJA TEST START
-        private IngredientMainModel _ingredientMainModel; // xaml Binding
+        private IngredientMainModel _ingredientMainModel;
         public IngredientMainModel IngredientMainModel
         {
             get { return _ingredientMainModel; }
@@ -245,10 +249,6 @@ namespace MySmoothieTry2.ViewModels
             set
             {
                 _singleIngredient = value;
-                //Task.Run(async () =>
-                //{
-                //    await InitializeGetIngredientAsync();
-                //});
                 OnPropertyChanged();
             }
         }
@@ -264,6 +264,17 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
+        private int _quantity;
+        public int Quantity
+        {
+            get { return _quantity; }
+            set
+            {
+                _quantity = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isBusy;   // loader
         public bool IsBusy
         {
@@ -275,7 +286,6 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        // Fire this when Add Ingredient button pressed
         // This code searches the API for the given ingredient (for retrieving FoodURI)
         private async Task InitializeGetIngredientAsync()
         {
@@ -303,15 +313,12 @@ namespace MySmoothieTry2.ViewModels
                 SetProperty(ref _kcal, value);
             }
         }
-        // MILJA TEST END
 
         public ICommand AddIngredientCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
         public ICommand UseCameraCommand { private set; get; }
         public ICommand AddIngredientToSmoothieCommand { private set; get; }
         public ICommand GetNutritionInfoCommand { private set; get; }
-        // MILJA TEST END
-
 
         // Tell all buttons to check their canexecute status again
         private void RefreshCanExecute()

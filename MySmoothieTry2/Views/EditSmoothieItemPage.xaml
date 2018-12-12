@@ -34,10 +34,8 @@
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-<!--                                <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding NewIngredientName}" />-->
                                 <Entry x:Name="ingredientName" Grid.Row="0" Grid.Column="0" Placeholder="New ingredient" Text="{Binding SingleIngredient}" />
-                                    <Entry x:Name="ingredientAmount" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)" />
-<!--                                <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT" Command="{Binding AddIngredientCommand}" />-->
+                                    <Entry x:Name="ingredientQuantity" Grid.Row="0" Grid.Column="1" Placeholder="Amount (ml)" Text="{Binding Quantity}"/>
                                 <Button x:Name="addIngredientButton" Grid.Row="1" Grid.ColumnSpan="2" Text="ADD INGREDIENT" Command="{Binding AddIngredientToSmoothieCommand}" />
                                 <Button x:Name="getNutritionButton" Grid.Row="2" Grid.ColumnSpan="2" Text="GET NUTRITION" Command="{Binding GetNutritionInfoCommand}" />
                                 </Grid>
@@ -53,7 +51,7 @@
                         </ListView>
                     </ViewCell>
                 </TableSection>
-                <TableSection Title="Nutrition (kcal)">
+                <TableSection Title="Smoothie Nutrition (kcal)">
                     <ViewCell>
                         <StackLayout Padding="15">
                             <Label x:Name="nutritionCell" Text="{Binding Kcal}" />
