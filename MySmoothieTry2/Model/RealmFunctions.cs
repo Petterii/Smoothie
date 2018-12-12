@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using Firebase.Storage;
 using Realms;
 using Realms.Sync;
 using static MySmoothieTry2.Constants;
@@ -33,6 +36,38 @@ namespace MySmoothieTry2.Model
             {
                 _realm.Remove((RealmObject)item);
             });
+        }
+
+        public static void SaveItem(Realm _realm, RealmObject item)
+        {
+            _realm.Write(() =>
+            {
+                _realm.Add(item, update: true);
+            });
+        }
+
+        public static void AddIngredient(Realm _realm, Smoothie item, string value)
+        {
+            using (var trans = _realm.BeginWrite())
+            {
+                item.Ingredients.Add(new Ingredient() { Name = value });
+                trans.Commit();
+            }
+        }
+
+
+
+        // should probbly be in a new class .. ex. FirebaseFunctions
+        public static async Task<string> StoreImages(Stream imageStream)
+        {
+            var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
+                .Child("Smoothies")
+                .Child(Guid.NewGuid().ToString() + ".jpg")
+                .PutAsync(imageStream, new CancellationToken(), "image/jpeg");
+
+
+            string imgurl = storageImage;
+            return imgurl;
         }
     }
 }

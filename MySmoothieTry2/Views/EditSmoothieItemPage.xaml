@@ -41,7 +41,7 @@
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
-                        <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding Smoothie.Ingredients}">
+                        <ListView x:Name="ingredientList" HeightRequest="150" ItemsSource="{Binding Ingredients}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextCell Height="50" Text="{Binding Name}" />

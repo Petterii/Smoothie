@@ -14,8 +14,7 @@ using Xamarin.Forms;
 using static MySmoothieTry2.Constants;
 using Plugin.Media.Abstractions;
 using System.Threading;
-
-
+using System.Collections.ObjectModel;
 
 namespace MySmoothieTry2.ViewModels
 {
@@ -24,6 +23,19 @@ namespace MySmoothieTry2.ViewModels
         public string CURRENT_SMOOTHIE_ID;
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
+
+        private ObservableCollection<Ingredient> ingredients;
+        public ObservableCollection<Ingredient> Ingredients {
+            get
+            {
+                    return ingredients;
+            }
+            set
+            {
+                    SetProperty(ref ingredients, value);
+            }
+          }
+        
 
         Realm _realm;
 
@@ -52,8 +64,9 @@ namespace MySmoothieTry2.ViewModels
             Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
             if (CURRENT_SMOOTHIE_ID != null)
             {
-                Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
 
+                Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+                Ingredients = Smoothie.Ingredients.ToObservableCollection();
                 if (Smoothie.UrlImage == null)
                 {
                     ThisImage = CAMERABUTTONIMAGE;
@@ -63,13 +76,15 @@ namespace MySmoothieTry2.ViewModels
             else 
             {
                 Smoothie = new Smoothie();
+                Ingredients = new ObservableCollection<Ingredient>();
                 Smoothie.Id = Guid.NewGuid().ToString();
-             
+
                 ThisImage = CAMERABUTTONIMAGE;
             }
         }
 
-  
+      
+
 
         public EditSmoothieItemPageViewModel()
         {
@@ -88,6 +103,8 @@ namespace MySmoothieTry2.ViewModels
             AddIngredientCommand = new Command(
                 execute: () =>
                 {
+                    Ingredients.Add(new Ingredient() { Name = NewIngredientName });
+                   //  RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
                     using (var trans = _realm.BeginWrite())
                     {
                         Smoothie.Ingredients.Add(new Ingredient() { Name = NewIngredientName });
@@ -101,12 +118,10 @@ namespace MySmoothieTry2.ViewModels
                 {
                     if (rule.Check(Smoothie.Name) && rule.Check(Smoothie.Description))
                     
-                    {   
-                        _realm.Write(() =>
-                        {
-                            Smoothie.UrlImage = ThisImage;
-                            _realm.Add(Smoothie, update: true);
-                        });
+                    {
+                        Smoothie.UrlImage = ThisImage;
+
+                        RealmFunctions.SaveItem(_realm, Smoothie);
 
                         Application.Current.MainPage.Navigation.PopAsync();
                     }
@@ -136,7 +151,8 @@ namespace MySmoothieTry2.ViewModels
                     PhotoSize = PhotoSize.Medium
                 });
 
-                ThisImage = await StoreImages(file.GetStream());
+                // Save Image in Firestore
+                ThisImage = await RealmFunctions.StoreImages(file.GetStream());
             }
             catch (Exception e)
             {
@@ -144,17 +160,7 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        public async Task<string> StoreImages(Stream imageStream)
-        {
-            var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
-                .Child("Smoothies")
-                .Child(Guid.NewGuid().ToString() + ".jpg")
-                .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
 
-
-            string imgurl = storageImage;
-            return imgurl;
-        }
 
 
         private string newIngredientName;
@@ -195,7 +201,6 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        public ICommand AddCommand { private set; get; }
         public ICommand AddIngredientCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
         public ICommand UseCameraCommand { private set; get; }
@@ -209,6 +214,17 @@ namespace MySmoothieTry2.ViewModels
     }
     public static class Extensions
     {
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+        {
+            var col = new ObservableCollection<T>();
+            foreach (var cur in enumerable)
+            {
+                col.Add(cur);
+            }
+            return col;
+        }
+
         public static void IgnoreResult(this Task task)
         {
             // This just silences the warnings when tasks are not awaited.
