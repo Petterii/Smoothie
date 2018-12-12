@@ -146,7 +146,7 @@ namespace MySmoothieTry2.ViewModels
             SaveCommand = new Command(
                 execute: () =>
                 {
-                    if (rule.Check(Smoothie.Name) && rule.Check(Smoothie.Description))
+                    if (rule.Check(Smoothie.Name))
                     
                     {
                         Smoothie.UrlImage = ThisImage;
