@@ -87,7 +87,7 @@ namespace MySmoothieTry2.Model
 
     public class NutritionPOST
     {
-        public int quantity = 100; // = 100 ml
+        public int quantity { get; set; }
         public string measureURI = "http://www.edamam.com/ontologies/edamam.owl#Measure_milliliter";
         public string foodURI { get; set; }
     }
