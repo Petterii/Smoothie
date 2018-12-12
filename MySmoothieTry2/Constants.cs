@@ -30,5 +30,12 @@
 
         // App description in About tab
         public static string APPDESC = "This app allows you to upload pictures of your favourite smoothies to Firebase.\nYou must choose a photo from your gallery.\nSave the ingredients used for future reference!";
+
+        // URL of REST service for SmoothieRestItem
+        //public static string RestUrl = "https://developer.xamarin.com:8081/api/todoitems/{0}";
+        public static string RestUrl = "https://smoothieexpress-82203.firebaseapp.com/smoothies";
+        // Credentials that are hard coded into the REST service
+        public static string Username = "Xamarin";
+        public static string Password = "Pa$$w0rd";
     }
 }

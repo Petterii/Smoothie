@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
              xmlns:local="clr-namespace:MySmoothieTry2"
              x:Class="MySmoothieTry2.Views.AboutPage"
              Title="About">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutPageViewModel/>
+    </ContentPage.BindingContext>
+    
        <ContentPage.Icon>
  <OnPlatform x:TypeArguments="FileImageSource" iOS="TabAboutIcon.png" />
  </ContentPage.Icon>
     <ContentPage.Content>
-           <Label Text="{x:Static local:Constants.APPDESC}"/>
+        
+        <StackLayout >
+        <Label Text="{x:Static local:Constants.APPDESC}"/>
+            
+        <Label Text="{Binding Smoothie}"/>
+           <Button Text="Get Smoothies Of The Day"  Command="{Binding FetchSmoothieRestItemCommand}" />
+            
+                 <StackLayout>
+         <ListView x:Name="SmoothieListView" HasUnevenRows="true" SeparatorColor="Black" ItemsSource="{Binding Smoothie}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        
+                        <StackLayout x:Name="cellLayout" Padding="10,5,10,5" Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                           <Image Aspect="AspectFit" Source="smoothie.png" WidthRequest="32" HeightRequest="32" VerticalOptions="FillAndExpand" />
+                                <StackLayout x:Name="DetailsLayout" Padding="10,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Namn}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
+                                
+                                    <Label Text="{Binding Ingredienser}" FontAttributes="Bold" FontSize="12" TextColor="Blue" />
+
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+            </StackLayout>
+            
+         </StackLayout>   
     </ContentPage.Content>
 </ContentPage>
