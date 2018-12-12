@@ -13,31 +13,9 @@ namespace MySmoothieTry2.ViewModels
 {
     public class Singleton
         {
-            private IEnumerable<Smoothie> smoothies;
-            public IEnumerable<Smoothie> Smoothies
-            {
-                get { return smoothies; }
+        public string CURRENT_SMOOTHIE_ID;
 
-                set
-                {
-                    if (smoothies == null)
-                    {
-                        smoothies = value;
-                    }
-                }
-            }
-            
-            private Smoothie selectedItem;
-            public Smoothie SelectedItem
-            {
-                get { return selectedItem; }
-                set
-                {
-                    selectedItem = value;
-                }
-            }
-
-            private static Singleton instance;
+        private static Singleton instance;
 
             private Singleton() { }
 

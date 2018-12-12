@@ -17,6 +17,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MySmoothieTry2.ServiceHandlers;
+using System.Collections.ObjectModel;
 
 namespace MySmoothieTry2.ViewModels
 {
@@ -26,14 +27,25 @@ namespace MySmoothieTry2.ViewModels
 
         IsNotNullOrEmptyRule<string> rule = new IsNotNullOrEmptyRule<string>();
 
-        Realm _realm;
+        private ObservableCollection<Ingredient> ingredients;
+        public ObservableCollection<Ingredient> Ingredients {
+            get
+            {
+                    return ingredients;
+            }
+            set
+            {
+                    SetProperty(ref ingredients, value);
+            }
+          }
+        
 
+        Realm _realm;
 
         // MILJA TEST START
         IngredientServices _ingredientServices = new IngredientServices();
         NutritionModelPOST _nutritionModelPOST = new NutritionModelPOST();
         // MILJA TEST END
-
 
         private Smoothie smoothie;
         public Smoothie Smoothie
@@ -50,52 +62,33 @@ namespace MySmoothieTry2.ViewModels
 
         async Task Initialize()
         {
-            _realm = await OpenRealm();
+            _realm = await RealmFunctions.OpenRealm();
+
+
+             Singleton store = Singleton.Instance;
+             CURRENT_SMOOTHIE_ID = store.CURRENT_SMOOTHIE_ID;
+             store.CURRENT_SMOOTHIE_ID = null;
+
             Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
-
-            Singleton store = Singleton.Instance;
-            selectedSmoothie = store.SelectedItem;
-            if (selectedSmoothie != null)
+            if (CURRENT_SMOOTHIE_ID != null)
             {
-                CURRENT_SMOOTHIE_ID = selectedSmoothie.Id;
-                Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
 
-                if (selectedSmoothie.UrlImage == null)
+                Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+                Ingredients = Smoothie.Ingredients.ToObservableCollection();
+                if (Smoothie.UrlImage == null)
                 {
                     ThisImage = CAMERABUTTONIMAGE;
                 }
-                else ThisImage = selectedSmoothie.UrlImage; 
-                // ThisImage = Smoothie.UrlImage ist. för ovan?
-
+                else ThisImage = Smoothie.UrlImage; 
             }
             else 
             {
                 Smoothie = new Smoothie();
+                Ingredients = new ObservableCollection<Ingredient>();
                 Smoothie.Id = Guid.NewGuid().ToString();
-                //Smoothie.Ingredients = new IList<Ingredient>();
+
                 ThisImage = CAMERABUTTONIMAGE;
             }
-        }
-
-        private async Task<Realm> OpenRealm()
-        {
-            var user = User.Current;
-            if (user != null)
-            {
-                var config = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-                // User has already logged in, so we can just load the existing data in the Realm.
-                return Realm.GetInstance(config);
-            }
-            var credentials = Credentials.UsernamePassword(USERNAME, 
-                                                           PASSWORD, 
-                                                           createUser: false);
-
-            user = await User.LoginAsync(credentials, new Uri(Constants.AuthUrl));
-            var configuration = new FullSyncConfiguration(new Uri(REALMPATH, UriKind.Relative), user);
-            // First time the user logs in, let's use GetInstanceAsync so we fully download the Realm
-            // before letting them interract with the UI.
-            var realm = await Realm.GetInstanceAsync(configuration);
-            return realm;
         }
 
         public EditSmoothieItemPageViewModel()
@@ -112,24 +105,11 @@ namespace MySmoothieTry2.ViewModels
             }, 
             canExecute: () => true);
 
-            //SaveCommand = new Command(
-                //execute: () =>
-                //{
-                //    SaveToDatabase();
-                //    //  await getImage();
-
-                //},
-                //canExecute: () => true
-                //);
-
             AddIngredientCommand = new Command(
                 execute: () =>
                 {
-                    using (var trans = _realm.BeginWrite())
-                    {
-                        Smoothie.Ingredients.Add(new Ingredient() { Name = NewIngredientName });
-                        trans.Commit();
-                    }
+                    Ingredients.Add(new Ingredient() { Name = NewIngredientName });
+                    RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
                 },
                 canExecute: () => false);
 
@@ -168,13 +148,10 @@ namespace MySmoothieTry2.ViewModels
                 {
                     if (rule.Check(Smoothie.Name) && rule.Check(Smoothie.Description))
                     
-                    {   
-                        _realm.Write(() =>
-                        {
+                    {
+                        Smoothie.UrlImage = ThisImage;
 
-                            Smoothie.UrlImage = ThisImage;
-                            _realm.Add(Smoothie, update: true);
-                        });
+                        RealmFunctions.SaveItem(_realm, Smoothie);
 
                         Application.Current.MainPage.Navigation.PopAsync();
                     }
@@ -187,7 +164,6 @@ namespace MySmoothieTry2.ViewModels
                 },
                 canExecute: () => true
                 );
-                
             Initialize().IgnoreResult();
         }
 
@@ -203,38 +179,12 @@ namespace MySmoothieTry2.ViewModels
                     PhotoSize = PhotoSize.Medium
                 });
 
-                ThisImage = await StoreImages(file.GetStream());
+                // Save Image in Firestore
+                ThisImage = await RealmFunctions.StoreImages(file.GetStream());
             }
             catch (Exception e)
             {
                 Console.WriteLine($"{e.ToString()}");
-            }
-        }
-
-        public async Task<string> StoreImages(Stream imageStream)
-        {
-            var storageImage = await new FirebaseStorage("smoothieapp-e6257.appspot.com")
-                .Child("Smoothies")
-                .Child(Guid.NewGuid().ToString() + ".jpg")
-                .PutAsync(imageStream, new CancellationToken(),"image/jpeg");
-
-
-            string imgurl = storageImage;
-            return imgurl;
-        }
-
-        Smoothie selectedSmoothie;
-        public Smoothie SelectedSmoothie
-        {
-            get
-            {
-                return selectedSmoothie;
-            }
-            set
-            {
-                SetProperty(ref selectedSmoothie, value);
-
-                RefreshCanExecute();
             }
         }
 
@@ -275,7 +225,6 @@ namespace MySmoothieTry2.ViewModels
                 }
             }
         }
-
 
         // MILJA TEST START
         private IngredientMainModel _ingredientMainModel; // xaml Binding
@@ -356,13 +305,9 @@ namespace MySmoothieTry2.ViewModels
         }
         // MILJA TEST END
 
-        public ICommand AddCommand { private set; get; }
         public ICommand AddIngredientCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
         public ICommand UseCameraCommand { private set; get; }
-
-
-        // MILJA TEST START
         public ICommand AddIngredientToSmoothieCommand { private set; get; }
         public ICommand GetNutritionInfoCommand { private set; get; }
         // MILJA TEST END
@@ -379,6 +324,17 @@ namespace MySmoothieTry2.ViewModels
     }
     public static class Extensions
     {
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+        {
+            var col = new ObservableCollection<T>();
+            foreach (var cur in enumerable)
+            {
+                col.Add(cur);
+            }
+            return col;
+        }
+
         public static void IgnoreResult(this Task task)
         {
             // This just silences the warnings when tasks are not awaited.

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:vm="clr-namespace:MySmoothieTry2.ViewModels;assembly=MySmoothieTry2"
              x:Name="YourView"
@@ -10,7 +10,7 @@
         <vm:SmoothieListPageViewModel/>
     </ContentPage.BindingContext>
    <ContentPage.Icon>
- <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
+ <OnPlatform x:TypeArguments="FileImageSource" iOS="TabListIcon.png" />
  </ContentPage.Icon>
     
         <ContentPage.ToolbarItems>  

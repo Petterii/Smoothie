@@ -5,7 +5,7 @@
              x:Class="MySmoothieTry2.Views.AboutPage"
              Title="About">
        <ContentPage.Icon>
- <OnPlatform x:TypeArguments="FileImageSource" iOS="smoothie.png" />
+ <OnPlatform x:TypeArguments="FileImageSource" iOS="TabAboutIcon.png" />
  </ContentPage.Icon>
     <ContentPage.Content>
            <Label Text="{x:Static local:Constants.APPDESC}"/>

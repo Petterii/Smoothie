@@ -25,21 +25,14 @@ namespace MySmoothieTry2.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Downloaded();
+   
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
         
             return base.FinishedLaunching(app, options);
         }
 
-        public void Downloaded()
-        {
-            CrossDownloadManager.Current.PathNameForDownloadedFile = new System.Func<IDownloadFile, string>(file =>
-           {
-               string fileName = (new NSUrl(file.Url, false)).LastPathComponent;
-               return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
-           });
-        }
+    
 
     }
 }
