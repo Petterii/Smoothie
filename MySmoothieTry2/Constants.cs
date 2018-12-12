@@ -22,6 +22,8 @@
         public const string CAMERABUTTONIMAGE = "ButtonCamera.png";
         public const string CAMERAUNAVAILABLE = "Camera isn't available...";
 
+        public const string SMOOTHIEIMAGE = "smoothie.png";
+
         // Image downloading
         public const string DOWNLOADTITLE = "File Status";
         public const string DOWNLOADPROMPT = "File Downloaded";
