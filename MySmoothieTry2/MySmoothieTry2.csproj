@@ -15,6 +15,9 @@
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
     <PackageReference Include="Xam.Plugins.DownloadManager" Version="1.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+    <PackageReference Include="modernhttpclient-updated" Version="2.7.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -23,6 +26,8 @@
     <Folder Include="Validations\" />
     <Folder Include="ImageResourse\" />
     <Folder Include="CustomControls\" />
+    <Folder Include="RestClients\" />
+    <Folder Include="ServiceHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="smoothie.png" />

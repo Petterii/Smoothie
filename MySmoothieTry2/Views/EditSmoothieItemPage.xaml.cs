@@ -15,7 +15,7 @@ namespace MySmoothieTry2.Views
 
             ingredientName.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
-            descriptionCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
+            //descriptionCell.Keyboard = Keyboard.Create(KeyboardFlags.None);
         }
     }
 }
