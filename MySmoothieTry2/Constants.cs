@@ -15,7 +15,7 @@
         public const string CANCELBUTTONTITLE = "Cancel";
 
         public const string ERRORTITLE = "Error";
-        public const string ERRORPROMPT = "Name and Description are required.";
+        public const string ERRORPROMPT = "Name is required!";
 
         public const string SAVEBUTTONTITLE = "Save";
 
