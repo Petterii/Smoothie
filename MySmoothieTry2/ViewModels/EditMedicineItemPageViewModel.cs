@@ -75,11 +75,7 @@ namespace MySmoothieTry2.ViewModels
 
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
                 Ingredients = Smoothie.Ingredients.ToObservableCollection();
-<<<<<<< HEAD
 
-=======
-                Kcal = Smoothie.Kcal;
->>>>>>> e3481e5b1f2d52789ecba812a19763e0ee73221a
                 if (Smoothie.UrlImage == null)
                 {
                     ThisImage = SMOOTHIEIMAGE;
