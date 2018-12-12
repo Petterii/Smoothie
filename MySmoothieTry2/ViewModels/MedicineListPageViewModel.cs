@@ -49,7 +49,7 @@ namespace MySmoothieTry2.ViewModels
         {
             _realm = await RealmFunctions.OpenRealm();
             Smoothies = _realm.All<Smoothie>().OrderBy(m => m.Name);
-          //  string x = "hello";
+         
         }
 
 
@@ -60,9 +60,7 @@ namespace MySmoothieTry2.ViewModels
             DeleteCommand = new Command(
               execute: (item) =>
               {
-                  // TODO Delete from realm
                   RealmFunctions.DeleteItem(_realm, (RealmObject)item);
-
               },
               canExecute: (item) => true
               );
@@ -77,7 +75,6 @@ namespace MySmoothieTry2.ViewModels
                 canExecute: () => true
                 );
 
-          
         }
   
         Smoothie selectedItem;
