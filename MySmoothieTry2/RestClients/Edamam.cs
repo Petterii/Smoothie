@@ -24,7 +24,6 @@ namespace MySmoothieTry2.RestClients
             try
             {
                 var response = await _httpClient.GetAsync($"https://api.edamam.com/api/food-database/parser?ingr={ingrLowerCase}&app_id=95724e2e&app_key=c327fd021d93b10202b4ddec95c1f4fd");
-
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
@@ -36,8 +35,10 @@ namespace MySmoothieTry2.RestClients
             {
                 e.ToString();
             }
-            // TODO - What to return in case of error
-            return JsonConvert.DeserializeObject<T>(null);
+            // FIX - What to return in case of error?
+            var json = await _httpClient.GetStringAsync("https://api.edamam.com/api/food-database/parser?ingr=milk&app_id=95724e2e&app_key=c327fd021d93b10202b4ddec95c1f4fd");
+            var getIngredientModels = JsonConvert.DeserializeObject<T>(json);
+            return getIngredientModels;
         }
 
         public async Task<T> GetSmoothieNutritionInfo(NutritionModelPOST nutrModelPOST)

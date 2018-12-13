@@ -63,7 +63,7 @@ namespace MySmoothieTry2.ViewModels
             _realm = await RealmFunctions.OpenRealm();
 
 
-             Singleton store = Singleton.Instance;
+            Singleton store = Singleton.Instance;
              CURRENT_SMOOTHIE_ID = store.CURRENT_SMOOTHIE_ID;
              store.CURRENT_SMOOTHIE_ID = null;
 
