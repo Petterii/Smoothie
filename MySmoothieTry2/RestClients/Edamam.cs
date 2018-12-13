@@ -36,15 +36,10 @@ namespace MySmoothieTry2.RestClients
             {
                 e.ToString();
             }
-
-            // FIX - What to return in case of error
-            var json = await _httpClient.GetStringAsync("https://api.edamam.com/api/food-database/parser?ingr=milk&app_id=95724e2e&app_key=c327fd021d93b10202b4ddec95c1f4fd");
-            var getIngredientModels = JsonConvert.DeserializeObject<T>(json);
-            return getIngredientModels;
+            // TODO - What to return in case of error
+            return JsonConvert.DeserializeObject<T>(null);
         }
 
-
-        //public async Task<T> GetSmoothieNutritionInfo(NutritionModelPOST ingModelPOST)
         public async Task<T> GetSmoothieNutritionInfo(NutritionModelPOST nutrModelPOST)
         {
             var data = JsonConvert.SerializeObject(nutrModelPOST);
@@ -52,7 +47,7 @@ namespace MySmoothieTry2.RestClients
 
             try
             {
-                var httpResponse = await _httpClient.PostAsync("https://api.edamam.com/api/food-database/nutrients?app_id=95724e2e&app_key=c327fd021d93b10202b4ddec95c1f4fd", content);
+                var httpResponse = await _httpClient.PostAsync($"https://api.edamam.com/api/food-database/nutrients?app_id={API_ID}&app_key={API_KEY}", content);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
@@ -66,9 +61,8 @@ namespace MySmoothieTry2.RestClients
                 e.ToString();
             }
 
-            // This needs to be fixed - What to return in case of error?
-            var n = JsonConvert.DeserializeObject<T>("");
-            return n;
+            // TODO - What to return in case of error
+            return JsonConvert.DeserializeObject<T>(null);
         }
     }
 }

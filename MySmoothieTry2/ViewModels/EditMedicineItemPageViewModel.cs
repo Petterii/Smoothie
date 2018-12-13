@@ -42,10 +42,8 @@ namespace MySmoothieTry2.ViewModels
 
         Realm _realm;
 
-        // MILJA TEST START
         IngredientServices _ingredientServices = new IngredientServices();
         NutritionModelPOST _nutritionModelPOST = new NutritionModelPOST();
-        // MILJA TEST END
 
         private Smoothie smoothie;
         public Smoothie Smoothie
@@ -74,6 +72,7 @@ namespace MySmoothieTry2.ViewModels
             {
 
                 Smoothie = _realm.Find<Smoothie>(CURRENT_SMOOTHIE_ID);
+                Kcal = Smoothie.Kcal;
                 Ingredients = Smoothie.Ingredients.ToObservableCollection();
 
                 if (Smoothie.UrlImage == null)
@@ -106,17 +105,18 @@ namespace MySmoothieTry2.ViewModels
             },
             canExecute: () => true);
 
-            AddIngredientCommand = new Command(
-                execute: () =>
-                {
-                    Ingredients.Add(new Ingredient() { Name = NewIngredientName });
-                    RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
-                },
-                canExecute: () => false);
+            //AddIngredientCommand = new Command(
+                //execute: () =>
+                //{
+                //    Ingredients.Add(new Ingredient() { Name = NewIngredientName });
+                //    RealmFunctions.AddIngredient(_realm, Smoothie, NewIngredientName);
+                //},
+                //canExecute: () => false);
 
             AddIngredientToSmoothieCommand = new Command(
                 execute: async () =>
                 {
+
                     await InitializeGetIngredientAsync();
                     NutritionPOST post = new NutritionPOST();
                     post.foodURI = FoodURI;
@@ -275,18 +275,17 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        private bool _isBusy;   // loader
-        public bool IsBusy
-        {
-            get { return _isBusy; }
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged();
-            }
-        }
+        //private bool _isBusy;   // loader
+        //public bool IsBusy
+        //{
+        //    get { return _isBusy; }
+        //    set
+        //    {
+        //        _isBusy = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        // This code searches the API for the given ingredient (for retrieving FoodURI)
         private async Task InitializeGetIngredientAsync()
         {
             IngredientMainModel = await _ingredientServices.GetIngredientDetails(_singleIngredient);
@@ -314,7 +313,7 @@ namespace MySmoothieTry2.ViewModels
             }
         }
 
-        public ICommand AddIngredientCommand { private set; get; }
+        //public ICommand AddIngredientCommand { private set; get; }
         public ICommand SaveCommand { private set; get; }
         public ICommand UseCameraCommand { private set; get; }
         public ICommand AddIngredientToSmoothieCommand { private set; get; }
@@ -324,14 +323,13 @@ namespace MySmoothieTry2.ViewModels
         private void RefreshCanExecute()
         {
             (SaveCommand as Command).ChangeCanExecute();
-            (AddIngredientCommand as Command).ChangeCanExecute();
+            //(AddIngredientCommand as Command).ChangeCanExecute();
             (AddIngredientToSmoothieCommand as Command).ChangeCanExecute();
 
         }
     }
     public static class Extensions
     {
-
         public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
         {
             var col = new ObservableCollection<T>();

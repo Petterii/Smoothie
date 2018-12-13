@@ -16,7 +16,6 @@ namespace MySmoothieTry2.ServiceHandlers
             return getIngredientDetails;
         }
 
-        //public async Task<NutritionPOSTReply> GetNutritionDetails(NutritionModelPOST ingModelPOST)
         public async Task<NutritionPOSTReply> GetNutritionDetails(NutritionModelPOST nutrModelPOST)
         {
             var getNutritionDetails = await _edamamPost.GetSmoothieNutritionInfo(nutrModelPOST).ConfigureAwait(false);
